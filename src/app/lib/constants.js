@@ -2,6 +2,7 @@ export const Barangay = [
   {
     name:"Conception Uno",
     description:'Barangay Conception Uno formerly known as the Bayan-Bayanan (little town).',
+    image:'images/1.jpg',
     establisments:[
       {
         Name:"Boy & Nita Ihaw-Ihaw Concepcion Branch",
@@ -92,6 +93,7 @@ export const Barangay = [
   {
     name:"Sto. Nino",
     description:'A city in Marikina',
+    image:"images/2.jpg",
     establisments:[
       {
         Name:"McDonalds JP Rizal Marikina",
@@ -236,6 +238,7 @@ export const Barangay = [
   {
     name:"Parang",
     description:'Parang is one of the most populated barangays in Marikina City.',
+    image:"images/3.jpg",
     establisments:[
       {
         Name:"Kalma UNLTD & Grill",
@@ -308,6 +311,7 @@ export const Barangay = [
   {
     name:"Marikina Heights",
     description:'During World War II, Barangay Marikina Heights was a vital military defense location...',
+    image:"images/4.jpg",
     establisments:[
       {
         Name:"The Clay Oven Multicuisine Restaurant",
@@ -410,6 +414,7 @@ export const Barangay = [
   {
     name:"Conception Dos",
     description:'Concepcion Dos also known to many as SSS Village is located near the Antipolo boundary. It is a place with many food hubs.',
+    image:"images/5.jpg",
     establisments:[
       {
         Name:"Crazy Katsu",
@@ -500,6 +505,7 @@ export const Barangay = [
   {
     name:"Tumana",
     description:'Tumana is probably the most populated barangay in Marikina City; a former sitio of Concepcion Uno.',
+    image:"images/6.jpg",
     establisments:[
       {
         Name:"Czyrah’s Pizza",
