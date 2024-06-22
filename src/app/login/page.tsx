@@ -35,7 +35,7 @@ const LoginPage = () => {
   return (
     <div className='bg-[#ececec] w-[100%] min-h-[100vh] flex flex-col items-center justify-center'>
       <div className="p-7 rounded-xl bg-[white] w-[95%] max-w-[400px]">
-        <Chip variant="filled" sizes="medium" colors="default" label="Go Back" onClick={()=>{router.back()}}/>
+        <Chip label="Go Back" onClick={()=>{router.back()}}/>
         <h2 className='text-center text-[25px] font-bold text-primary mt-4'>Login</h2>
         <p className='text-center opacity-85'>Welcome Back!</p>
         <form onSubmit={formik.handleSubmit} className='flex flex-col gap-4 mt-5'>
@@ -50,7 +50,7 @@ const LoginPage = () => {
           <Button type="submit" variant="contained" color="primary" className='mt-4'>
             Login
           </Button>
-          <p className='text-center text-[13px] mt-[-5px] text-[black]/50'>Don't have an account? <span className='underline text-[black]/80 font-semibold cursor-pointer hover:text-[black]/100' onClick={()=>{ router.push('/signup');}}>Sign Up</span></p>
+          <p className='text-center text-[13px] mt-[-5px] text-[black]/50'>Don&apos;t have an account? <span className='underline text-[black]/80 font-semibold cursor-pointer hover:text-[black]/100' onClick={()=>{ router.push('/signup');}}>Sign Up</span></p>
         </form>
       </div>
     </div>

@@ -2,9 +2,9 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import Textfield from '../components/Textfield'
-import { Button, Chip } from '@mui/material'
+import { Button } from '@mui/material'
 import { useRouter } from 'next/navigation'
-
+import Chip from '@mui/material/Chip';
 
 
 const LoginPage = () => {
@@ -36,7 +36,7 @@ const LoginPage = () => {
   return (
     <div className='bg-[#ececec] w-[100%] min-h-[100vh] flex flex-col items-center justify-center'>
       <div className="p-7 rounded-xl bg-[white] w-[95%] max-w-[400px]">
-        <Chip variant="filled" sizes="medium" colors="default" label="Go Back" onClick={()=>{router.back()}}/>
+        <Chip label="Go Back" onClick={()=>{router.back()}}/>
         <h2 className='text-center text-[25px] font-bold text-primary mt-4'>Sign Up</h2>
         <p className='text-center opacity-85'>Register and be part of us</p>
         <form onSubmit={formik.handleSubmit} className='flex flex-col gap-4 mt-5'>
@@ -51,7 +51,7 @@ const LoginPage = () => {
           <Button type="submit" variant="contained" color="primary" className='mt-4'>
             Login
           </Button>
-          <p className='text-center text-[13px] mt-[-5px] text-[black]/50'>Don't have an account? <span className='underline text-[black]/80 font-semibold cursor-pointer hover:text-[black]/100' onClick={()=>{ router.push('/signup');}}>Sign Up</span></p>
+          <p className='text-center text-[13px] mt-[-5px] text-[black]/50'>Don&apos;t have an account? <span className='underline text-[black]/80 font-semibold cursor-pointer hover:text-[black]/100' onClick={()=>{ router.push('/signup');}}>Sign Up</span></p>
         </form>
       </div>
     </div>

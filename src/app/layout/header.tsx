@@ -1,13 +1,13 @@
 "use client"
-import React from 'react'
+import React,{useState} from 'react'
 import Image from 'next/image'
 import IconButton from '@mui/material/IconButton'
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link';
 import Button from '@mui/material/Button'
-export default function header() {
-  const [openSearch, setOpenSearch] = React.useState(false)
+export default function Header() {
+  const [openSearch, setOpenSearch] = useState(false)
   return (
     <div className='fixed top-0 w-[100vw] z-[40]'>
       <div className='bg-[#ADD8E6] px-4 py-3 flex justify-between items-center'>
