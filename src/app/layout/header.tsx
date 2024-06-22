@@ -10,20 +10,20 @@ export default function Header() {
   const [openSearch, setOpenSearch] = useState(false)
   return (
     <div className='fixed top-0 w-[100vw] z-[40]'>
-      <div className='bg-[#ADD8E6] px-4 py-3 flex justify-between items-center'>
+      <div className='bg-[#ADD8E6] px-4 py-3 flex justify-between items-center  pr-7'>
         <Link href={"/dashboard"}><Image src={"/images/Websitelogo.png"} alt='logo' width={150} height={150}/></Link>
         <div className='flex gap-4 translate-x-[-60px]'>
           <NavLink label='About' location='/dashboard/about'/>
           <NavLink label='News' location='/news'/>
           <NavLink label='Contact' location='/dashboard/contact'/>
         </div>
-        <div className='mr-3'>
+        <div className=''>
           <IconButton aria-label=""  onClick={()=>{setOpenSearch(!openSearch)}}>
             {openSearch? <CloseIcon sx={{color:"black"}}/>:<SearchIcon sx={{color:"black"}}/> }
           </IconButton>
         </div>
       </div>
-      {openSearch && <div className='bg-[#ADD8E6] p-2 flex justify-center items-center gap-4'>
+      {openSearch && <div className='bg-[#ADD8E6] p-4 flex justify-center items-center gap-4 pr-7'>
         <input type="text" placeholder="Search..." className='bg-[white] outline-none w-full p-2 rounded-lg'/>
         <Button variant="contained" color="primary">
           Search

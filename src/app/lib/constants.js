@@ -600,3 +600,46 @@ export const Barangay = [
     ],
   }
 ]
+
+export const ContactEmergency = [
+  {
+    name:"EMERGENCY HOTLINE MARIKINA CITY RESCUE 161",
+    contactNumber:"0917-584-2168 (GLOBE)/ 0928-559-3341 (SMART)/ 0998-997-0115 (SMART)/ 0998-579-6435 (SMART)",
+  },
+  {
+    name:"PNP Marikina",
+    contactNumber:"8405-0091",
+  },
+  {
+    name:"PNP COMMUNITY PRECINCT (Barangka)",
+    contactNumber:"508-8287",
+  },
+  {
+    name:"PNP COMMUNITY PRECINCT (Concepcion II)",
+    contactNumber:"942-3618",
+  },
+  {
+    name:"FIRE STATION (Malanday)",
+    contactNumber:"998-7412",
+  },
+  {
+    name:"FIRE STATION (IVC)",
+    contactNumber:"477-7003",
+  },
+  {
+    name:"FIRE STATION (CENTRAL)",
+    contactNumber:"681-0233",
+  },
+  {
+    name:"FIRE STATION (Nangka)",
+    contactNumber:"586-4397",
+  },
+  {
+    name:"FIRE STATION (Concepcion Uno)",
+    contactNumber:"706-1663",
+  },
+  {
+    name:"FIRE STATION (Parang)",
+    contactNumber:"636-2915",
+  },
+]
