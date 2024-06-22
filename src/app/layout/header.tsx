@@ -11,11 +11,11 @@ export default function Header() {
   return (
     <div className='fixed top-0 w-[100vw] z-[40]'>
       <div className='bg-[#ADD8E6] px-4 py-3 flex justify-between items-center'>
-        <Image src={"/images/Websitelogo.png"} alt='logo' width={150} height={150}/>
-        <div className='flex gap-4'>
+        <Link href={"/dashboard"}><Image src={"/images/Websitelogo.png"} alt='logo' width={150} height={150}/></Link>
+        <div className='flex gap-4 translate-x-[-60px]'>
+          <NavLink label='About' location='/dashboard/about'/>
           <NavLink label='News' location='/news'/>
-          <NavLink label='Contact' location='/news'/>
-          <NavLink label='About' location='/news'/>
+          <NavLink label='Contact' location='/dashboard/contact'/>
         </div>
         <div className='mr-3'>
           <IconButton aria-label=""  onClick={()=>{setOpenSearch(!openSearch)}}>
