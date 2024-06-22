@@ -3,14 +3,14 @@ import React,{useState} from 'react'
 import Container from '@mui/material/Container'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {ContactEmergency} from "../../lib/constants"
 import SearchInput from '@/app/components/SearchInput';
-export default function page() {
+export default function Contact() {
   const [search, setSearch] = useState('')
   const filteredContacts = ContactEmergency.filter((row) => row.name.toLowerCase().includes(search.toLowerCase()));
 

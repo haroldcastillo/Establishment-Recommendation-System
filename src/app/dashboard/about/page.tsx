@@ -1,7 +1,7 @@
 import React from 'react'
 import Container from '@mui/material/Container'
 
-function page() {
+function About() {
   return <Container maxWidth="lg" className='flex flex-col gap-7'>
     <div className='mt-[4em]'>
       <h5 className='text-[25px] font-semibold opacity-90 mb-2'>Welcome to Marikina City</h5>
@@ -18,4 +18,4 @@ function page() {
   </Container>
 }
 
-export default page
+export default About
