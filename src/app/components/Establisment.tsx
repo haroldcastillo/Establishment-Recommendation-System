@@ -16,7 +16,6 @@ export default function Establisment({data,goBack}:{data:any,goBack:()=>void}) {
   const filteredData = data.filter((row:any) => row.Name.toLowerCase().includes(search.toLowerCase()));
   return (
     <div>
-      
       <Container maxWidth="lg" className='pt-4'>
         <div className='mt-[2em]'>
           <Chip label="Go Back" icon={<ArrowBackIcon/>} onClick={()=>{goBack()}} className='mb-4'/>

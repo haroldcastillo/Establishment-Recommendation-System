@@ -12,15 +12,19 @@ const LoginPage = () => {
   const formik = useFormik({
     initialValues: {
       username: '',
-      password: ''
+      password: '',
+      confirmPassword: ''
     },
     validate: (values) => {
-      let errors:{ username?: string, password?: string } = {};
+      let errors:{ username?: string, password?: string ,confirmPassword?:string} = {};
       if (!values.username) {
         errors.username = 'Required Username';
       }
       if (!values.password) {
         errors.password = 'Required Password';
+      }
+      if (!values.confirmPassword) {
+        errors.password = 'Required Confirm Password';
       }
       return errors;
     },
@@ -48,10 +52,14 @@ const LoginPage = () => {
             error={formik.touched.password && formik.errors.password !== undefined}
             errorMessages={formik.errors.password}
           />
+          <Textfield label='Confirm Password' type='password' placeholder='' value={formik.values.confirmPassword} onChange={formik.handleChange} name="password" 
+            error={formik.touched.confirmPassword && formik.errors.confirmPassword !== undefined}
+            errorMessages={formik.errors.confirmPassword}
+          />
           <Button type="submit" variant="contained" color="primary" className='mt-4'>
             Login
           </Button>
-          <p className='text-center text-[13px] mt-[-5px] text-[black]/50'>Don&apos;t have an account? <span className='underline text-[black]/80 font-semibold cursor-pointer hover:text-[black]/100' onClick={()=>{ router.push('/signup');}}>Sign Up</span></p>
+          <p className='text-center text-[13px] mt-[-5px] text-[black]/50'>Have an account? <span className='underline text-[black]/80 font-semibold cursor-pointer hover:text-[black]/100' onClick={()=>{ router.push('/login');}}>Login</span></p>
         </form>
       </div>
     </div>
