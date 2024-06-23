@@ -37,6 +37,7 @@ export default function Preference({value, setValue,setOpen}: PreferenceProps) {
           <Button variant="contained" color="primary" className='w-[90px]'
             onClick={()=>{
               localStorage.setItem("preference", JSON.stringify(value))
+              setOpen()
             }}
           >
             Proceed

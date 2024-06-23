@@ -9,15 +9,17 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import SearchInput from '@/app/components/SearchInput'
-
-export default function Establisment({data}:{data:any}) {
+import { Button, Chip } from '@mui/material'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+export default function Establisment({data,goBack}:{data:any,goBack:()=>void}) {
   const [search, setSearch] = useState('')
   const filteredData = data.filter((row:any) => row.Name.toLowerCase().includes(search.toLowerCase()));
   return (
     <div>
-      <Container maxWidth="lg">
+      
       <Container maxWidth="lg" className='pt-4'>
         <div className='mt-[2em]'>
+          <Chip label="Go Back" icon={<ArrowBackIcon/>} onClick={()=>{goBack()}} className='mb-4'/>
           <SearchInput value={search} setValue={setSearch}/>
         </div>
         <div className='mt-6 mb-[4em]'>
@@ -32,7 +34,7 @@ export default function Establisment({data}:{data:any}) {
               </TableHead>
               <TableBody>
                 {filteredData.map((row:any,index:number) => (
-                  <TableRow key={row.index}>
+                  <TableRow key={index}>
                     <TableCell component="th" scope="row">
                       {row.Name}
                     </TableCell>
@@ -47,7 +49,6 @@ export default function Establisment({data}:{data:any}) {
             </Table>
           </TableContainer>
         </div>
-      </Container>
       </Container>
     </div>
   )

@@ -44,7 +44,9 @@ export default function Page() {
               <div className='grid gap-4' style={{ gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))" }}>
                 {Barangay.map((barangay, index) => (
                   <BarangayCard key={index} title={barangay.name} description={barangay.description} img={barangay.image} onClick={()=>{
-                    setEstablishment(barangay.establisments);
+                    setEstablishment(barangay.establisments.filter((row) => 
+                      preference.includes(row.Type)
+                    ));
                     setOpen("Establishment");
                   }}/>
                 ))}
@@ -52,7 +54,7 @@ export default function Page() {
             </Container>
           </section>
       </>}
-      {open==="Establishment"&&<Establisment data={establishment}/>}
+      {open==="Establishment"&&<Establisment data={establishment} goBack={()=>{setOpen("Dashboard")}}/>}
     </>
   );
 }
