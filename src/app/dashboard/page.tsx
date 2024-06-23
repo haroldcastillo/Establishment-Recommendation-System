@@ -5,7 +5,8 @@ import CircleIcon from '@mui/icons-material/Circle';
 import Container from '@mui/material/Container';
 import BarangayCard from '../components/BarangayCard';
 import { Barangay } from '../lib/constants';
-
+import Preference from './Preference';
+import Establisment from '../components/Establisment';
 export default function Page() {
   const videos = [
     "/images/vid-1.mp4",
@@ -16,33 +17,42 @@ export default function Page() {
   ];
 
   const [videoIndex, setVideoIndex] = useState(0);
-
+  const [preference, setPreference] = useState<string[]>([]);
+  const [open, setOpen] = useState("Preference");
+  const [establishment, setEstablishment] = useState<object[]>([]);
   return (
     <>
-      <section className=''>
-        <div className='min-h-[93vh] relative flex items-center justify-center'>
-          <video src={videos[videoIndex]} autoPlay className="absolute z-[-1] w-full h-full object-cover" loop muted></video>
-          <div className=' z-[1] text-center flex flex-col items-center'>
-            <h1 className="text-[white] text-[70px] font-bold">@MARIKINA </h1>
-            <p className="text-[white] text-[30px]">Travel Aid Website</p>
-            <div className='flex rounded-full mt-[6em] bg-secondary'>
-              {videos.map((_, index) => (
-                <IconButton key={index} onClick={() => { setVideoIndex(index) }}>
-                  <CircleIcon sx={{ color: videoIndex === index ? "#1976D2" : "white" }} />
-                </IconButton>
-              ))}
+      {open==="Preference"&&<Preference value={preference} setValue={setPreference} setOpen={()=>{setOpen("Dashboard")}} />}
+      {open==="Dashboard"&&<>
+          <section className=''>
+            <div className='min-h-[93vh] relative flex items-center justify-center'>
+              <video src={videos[videoIndex]} autoPlay className="absolute z-[-1] w-full h-full object-cover" loop muted></video>
+              <div className=' z-[1] text-center flex flex-col items-center'>
+                <h1 className="text-[white] text-[70px] font-bold">@MARIKINA </h1>
+                <p className="text-[white] text-[30px]">Travel Aid Website</p>
+                <div className='flex rounded-full mt-[6em] bg-secondary'>
+                  {videos.map((_, index) => (
+                    <IconButton key={index} onClick={() => { setVideoIndex(index) }}>
+                      <CircleIcon sx={{ color: videoIndex === index ? "#1976D2" : "white" }} />
+                    </IconButton>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <Container maxWidth="lg" className='mx-auto px-2 py-5'>
-          <h1 className='text-[20px] font-semibold mb-4 opacity-80'>Recommendation</h1>
-          <div className='grid gap-4' style={{ gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))" }}>
-            {Barangay.map((barangay, index) => (
-              <BarangayCard key={index} title={barangay.name} description={barangay.description} img={barangay.image} />
-            ))}
-          </div>
-        </Container>
-      </section>
+            <Container maxWidth="lg" className='mx-auto px-2 py-5'>
+              <h1 className='text-[20px] font-semibold mb-4 opacity-80'>Recommendation</h1>
+              <div className='grid gap-4' style={{ gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))" }}>
+                {Barangay.map((barangay, index) => (
+                  <BarangayCard key={index} title={barangay.name} description={barangay.description} img={barangay.image} onClick={()=>{
+                    setEstablishment(barangay.establisments);
+                    setOpen("Establishment");
+                  }}/>
+                ))}
+              </div>
+            </Container>
+          </section>
+      </>}
+      {open==="Establishment"&&<Establisment data={establishment}/>}
     </>
   );
 }

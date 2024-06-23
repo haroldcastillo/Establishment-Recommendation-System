@@ -643,3 +643,12 @@ export const ContactEmergency = [
     contactNumber:"636-2915",
   },
 ]
+
+export const EstablishmentType = [
+  "Restaurant",
+  "Health Facility",
+  "Landmarks",
+  "Museum",
+  "Malls",
+  "Government",
+]
