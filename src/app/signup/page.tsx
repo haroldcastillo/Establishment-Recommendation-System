@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import { useFormik } from 'formik'
-import Textfield from '../components/Textfield'
+import Textfield from '@/components/Textfield'
 import { Button } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import Chip from '@mui/material/Chip';
@@ -24,7 +24,7 @@ const LoginPage = () => {
         errors.password = 'Required Password';
       }
       if (!values.confirmPassword) {
-        errors.password = 'Required Confirm Password';
+        errors.confirmPassword = 'Required Confirm Password';
       }
       return errors;
     },
@@ -52,7 +52,7 @@ const LoginPage = () => {
             error={formik.touched.password && formik.errors.password !== undefined}
             errorMessages={formik.errors.password}
           />
-          <Textfield label='Confirm Password' type='password' placeholder='' value={formik.values.confirmPassword} onChange={formik.handleChange} name="password" 
+          <Textfield label='Confirm Password' type='password' placeholder='' value={formik.values.confirmPassword} onChange={formik.handleChange} name="confirmPassword" 
             error={formik.touched.confirmPassword && formik.errors.confirmPassword !== undefined}
             errorMessages={formik.errors.confirmPassword}
           />

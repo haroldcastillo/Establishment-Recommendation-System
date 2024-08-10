@@ -1,6 +1,6 @@
 import React from 'react'
 import Container from '@mui/material/Container'
-import {EstablishmentType} from '@/app/lib/constants'
+import {EstablishmentType} from '@/lib/constants' 
 import Button from '@mui/material/Button'
 
 type PreferenceProps = {

@@ -8,10 +8,10 @@ export default function footer() {
       <Container maxWidth="lg" className='flex justify-between'>
         <p>©AtMarikina {new Date().getFullYear()} All Rights Reserved</p>
         <div className='flex gap-4'>
-          <NavLink label='Home' location='/dashboard'/>
-          <NavLink label='About' location='/dashboard/about'/>
-          <NavLink label='News' location='/dashboard/news'/>
-          <NavLink label='Contact' location='/dashboard/contact'/>
+          <NavLink label='Home' location='/'/>
+          <NavLink label='About' location='/legal/about'/>
+          <NavLink label='News' location='/legal/news'/>
+          <NavLink label='Contact' location='/legal/contact'/>
         </div>
       </Container>
     </footer>

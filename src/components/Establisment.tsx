@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import SearchInput from '@/app/components/SearchInput'
+import SearchInput from '@/components/SearchInput';
 import { Button, Chip } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 export default function Establisment({data,goBack}:{data:any,goBack:()=>void}) {

@@ -9,15 +9,15 @@ type Props = {
   img: string,
   onClick?: ()=>void
 }
-export default function BarangayCard({title, description, img,onClick}: Props) {
+export default function CardComponent({title, description, img,onClick}: Props) {
   return (
     <div className="rounded-xl shadow-md overflow-hidden flex flex-col">
-      <div className=' w-[100%] h-[250px]' style={{background:`url('${img}') no-repeat`,backgroundSize:"cover"}}/>
-      <div className='p-4 flex flex-col grow'>
-        <p className='text-primary text-[17px] font-semibold'><LocationOnIcon/>{title}</p>
-        <p className='grow'>{description}</p>
+      <div className=' w-[100%] h-[250px]' style={{background:`url('../images/sss1.jpg')`,backgroundSize:"cover"}}/>
+      <div className='p-4'>
+        <p className='grow text-[17px] font-semibold'>{title}</p>
+        <p className='text-primary text-[14px]'><LocationOnIcon/>{description}</p>
         <Button fullWidth variant="contained" className='mt-4' color="primary" onClick={onClick}>
-          learn more
+          Visit
         </Button>
       </div>
     </div>

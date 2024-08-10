@@ -1,16 +1,19 @@
 "use client"
-import React from 'react'
+import React,{useEffect} from 'react'
 import { useFormik } from 'formik'
-import Textfield from '../components/Textfield'
+import Textfield from '@/components/Textfield'
 import { Button, Chip } from '@mui/material'
 import { useRouter } from 'next/navigation'
-
+import { useDispatch,useSelector } from 'react-redux'
+import { loginUser } from '@/store/actions/auth'
 const LoginPage = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
+
   const formik = useFormik({
     initialValues: {
-      username: '',
-      password: ''
+      username: 'haroldcastillo272@gmail.com',
+      password: 'Sample123'
     },
     validate: (values) => {
       let errors:{ username?: string, password?: string } = {};
@@ -22,16 +25,18 @@ const LoginPage = () => {
       }
       return errors;
     },
-    onSubmit: async (values) => {
-      console.log(process.env.NEXT_PUBLIC_SAMPLE_USERNAME)
-      if(values.username === process.env.NEXT_PUBLIC_SAMPLE_USERNAME && values.password === process.env.NEXT_PUBLIC_SAMPLE_PASSWORD){
-        localStorage.setItem('isLoggedIn', 'true');
-        router.push('/dashboard');
-      }
-      
+    onSubmit: async (values,{resetForm}) => {
+      dispatch(loginUser({email: values.username, password: values.password}));
+      resetForm();
     }
   });
 
+  const utils = useSelector((state:any) => state.auth.utils);
+  useEffect(() => {
+    if(utils.accessToken){
+      router.push('/');
+    }
+  }, [utils]);
   return (
     <div className='bg-[#ececec] w-[100%] min-h-[100vh] flex flex-col items-center justify-center'>
       <div className="p-7 rounded-xl bg-[white] w-[95%] max-w-[400px]">
