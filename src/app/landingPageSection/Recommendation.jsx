@@ -5,12 +5,12 @@ import CardComponent from '@/components/CardComponent';
 import { useSelector,useDispatch } from "react-redux";
 import { fetchEstablishments } from '@/store/actions/establishments';
 import LandingFilter from '@/components/LandingFilter';
-
+import { useRouter } from 'next/navigation';
 export default function Recommendation() {
   const dispatch = useDispatch();
   const establishments = useSelector((state) => state.establishments.recommendations);
   const utils = useSelector((state) => state.establishments.utils);
-
+  const router = useRouter();
   useEffect(() => {
     dispatch(fetchEstablishments({
       type: utils.type || [],
@@ -34,7 +34,7 @@ export default function Recommendation() {
       </div>
       <div className='grid gap-4' style={{ gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))" }}>
         {establishments && establishments?.data?.map((item, index) => (
-          <CardComponent title={item.name} img="images/sss1.jpg" description={item.barangay} onClick={() => { }} />
+          <CardComponent key={index} title={item.name} img="images/sss1.jpg" description={item.barangay} onClick={() => {router.push(`/establishment/${item._id}`)}} />
         ))}
       </div>
     </div>

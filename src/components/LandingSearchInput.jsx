@@ -1,11 +1,12 @@
 "use client"
 import React,{useEffect, useState} from 'react'
 import SearchInput from './SearchInput'
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector} from 'react-redux'
 import { setSearchValue } from '@/store/actions/establishments'
 export default function LandingSearchInput() {
+  const searchValue = useSelector(state => state.establishments.utils.search)
   const dispatch = useDispatch()
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState(searchValue||"")
 
   useEffect(()=>{
     dispatch(setSearchValue(search))

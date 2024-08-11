@@ -1126,6 +1126,22 @@ export const Barangay = [
   }
 ]
 
+export const BarangayList = [
+  "Barangka",
+  "Conception Dos",
+  "Fortune",
+  "Jesus Dela Peña",
+  "Kalumpang",
+  "Malanday",
+  "Marikina Heights",
+  "Nangka",
+  "Parang",
+  "San Roque",
+  "Santa Elena",
+  "Santo Niño",
+  "Tañong",
+  "Tumana",
+]
 export const ContactEmergency = [
   {
     name:"EMERGENCY HOTLINE MARIKINA CITY RESCUE 161",

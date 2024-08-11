@@ -6,20 +6,47 @@ import {
   fork 
 } 
 from "redux-saga/effects";
-import { useSelector } from "react-redux";
 import {
   FETCH_ESTABLISHMENTS,
   fetchEstablishmentsSuccess,
-  fetchEstablishmentsFailure
+  fetchEstablishmentsFailure,
+  FETCH_ESTABLISHMENT,
+  fetchEstablishmentSuccess,
+  fetchEstablishmentFailure,
+  CREATE_ESTABLISHMENT,
+  createEstablishmentSuccess,
+  createEstablishmentFailure,
+  FETCH_OWNED_ESTABLISHMENTS,
+  fetchOwnedEstablishmentsSuccess,
+  fetchOwnedEstablishmentsFailure,
+  UPDATE_ESTABLISHMENT,
+  updateEstablishmentSuccess,
+  updateEstablishmentFailure
 } 
 from "../actions/establishments";
 
+
 import {
-  getEstablishments
+  getEstablishments,
+  getEstablishment,
+  createEstablishment,
+  getEstablishmentByUser,
+  addViews,
+  updateEstablishment
 }
 from "../apis/establishments";
 
 {/* ====== Async Function SAGA ====== */ }
+
+function* createEstablishmentSaga(props){
+  try{
+    const response = yield call(createEstablishment,props.payload);
+    yield put(createEstablishmentSuccess(response.data));
+  }catch(error){
+    yield put(createEstablishmentFailure({error:error.toString()}));
+  }
+}
+
 
 function* fetchEstablishmentsSaga(props){
   try{
@@ -30,17 +57,67 @@ function* fetchEstablishmentsSaga(props){
   }
 }
 
+function* fetchEstablishmentSaga(props){
+  try{
+    const response = yield call(getEstablishment,props.payload);
+    yield put(fetchEstablishmentSuccess(response));
+    yield call(addViews,props.payload);
+  }catch(error){
+    yield put(fetchEstablishmentFailure({error:error.toString()}));
+  }
+}
+
+function* fetchOwnedEstablishmentsSaga(props){
+  try{
+    const response = yield call(getEstablishmentByUser,props.payload.userId);
+    yield put(fetchOwnedEstablishmentsSuccess(response));
+  }catch(error){
+    yield put(fetchOwnedEstablishmentsFailure({error:error.toString()}));
+  }
+}
+
+function* updateEstablishmentSaga(props){
+  try{
+    const response = yield call(updateEstablishment,props.payload);
+    yield put(updateEstablishmentSuccess(response.data));
+  }catch(error){
+    yield put(updateEstablishmentFailure({error:error.toString()}));
+  }
+}
+
+
+
 {/* ====== Watcher SAGA ====== */ }
+
+function* watchCreateEstablishmentSaga() {
+  yield takeLatest(CREATE_ESTABLISHMENT, createEstablishmentSaga);
+}
+
+function* watchUpdateEstablishmentSaga() {
+  yield takeLatest(UPDATE_ESTABLISHMENT, updateEstablishmentSaga);
+}
 
 function* watchFetchEstablishmentsSaga() {
   yield takeLatest(FETCH_ESTABLISHMENTS, fetchEstablishmentsSaga);
 }
 
+function* watchFetchEstablishmentSaga() {
+  yield takeLatest(FETCH_ESTABLISHMENT, fetchEstablishmentSaga);
+}
+
+function* watchFetchOwnedEstablishmentsSaga() {
+  yield takeLatest(FETCH_OWNED_ESTABLISHMENTS, fetchOwnedEstablishmentsSaga);
+}
+
+
 
 
 export default function* establishmentsSaga() {
   yield all([
-    // fork(watchFetchEstablishmentsSaga)
-    fork(watchFetchEstablishmentsSaga)
+    fork(watchCreateEstablishmentSaga),
+    fork(watchFetchEstablishmentsSaga),
+    fork(watchFetchEstablishmentSaga),
+    fork(watchFetchOwnedEstablishmentsSaga),
+    fork(watchUpdateEstablishmentSaga)
   ]);
 }

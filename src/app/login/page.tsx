@@ -13,7 +13,7 @@ const LoginPage = () => {
   const formik = useFormik({
     initialValues: {
       username: 'haroldcastillo272@gmail.com',
-      password: 'Sample123'
+      password: '@Sample'
     },
     validate: (values) => {
       let errors:{ username?: string, password?: string } = {};
@@ -41,8 +41,8 @@ const LoginPage = () => {
     <div className='bg-[#ececec] w-[100%] min-h-[100vh] flex flex-col items-center justify-center'>
       <div className="p-7 rounded-xl bg-[white] w-[95%] max-w-[400px]">
         <Chip label="Go Back" onClick={()=>{router.back()}}/>
-        <h2 className='text-center text-[25px] font-bold text-primary mt-4'>Login</h2>
-        <p className='text-center opacity-85'>Welcome Back!</p>
+        <h2 className='text-center text-[25px] font-bold text-primary mt-4'>LOGIN</h2>
+        <p className='text-center font-semibold text-[14px] opacity-60'>Welcome Back!👋</p>
         <form onSubmit={formik.handleSubmit} className='flex flex-col gap-4 mt-5'>
           <Textfield label='Username' type='text' placeholder='' value={formik.values.username} onChange={formik.handleChange} name="username" 
             error={formik.touched.username && formik.errors.username !== undefined}

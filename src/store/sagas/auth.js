@@ -8,16 +8,33 @@ import {
   logoutUserFailure,
   STATUS_CHECKER_START,
   statusCheckerSuccess,
-  statusCheckerFailure
+  statusCheckerFailure,
+  REGISTER_USER_START,
+  registerUserSuccess,
+  registerUserFailure
 } from "../actions/auth";
 
 import{
+  register,
   login,
   logout,
   checkstatus
 } from "../apis/auth";
 
 {/* ====== Async Function SAGA ====== */ }
+function* registerUserSaga(props){
+  try{
+    const response = yield call(register,props.payload);
+    yield put(registerUserSuccess({
+      token: response.accessToken,
+      userId: response.userId
+    }))
+  }catch(error){
+    yield put(registerUserFailure({error:error.toString()}));
+  }
+}
+
+
 function* loginUserSaga(props){
   try{
     const response = yield call(login,props.payload);
@@ -54,6 +71,10 @@ function* statusCheckerSaga(){
 
 
 {/* ====== Watcher SAGA ====== */ }
+function* watchRegisterUserSaga() {
+  yield takeLatest(REGISTER_USER_START, registerUserSaga);
+}
+
 function* watchLoginUserSaga() {
   yield takeLatest(LOGIN_USER_START, loginUserSaga);
 }
@@ -68,6 +89,7 @@ function* watchStatusCheckerSaga() {
 
 export default function* authSaga() {
   yield all([
+    fork(watchRegisterUserSaga),
     fork(watchLoginUserSaga),
     fork(watchLogoutUserSaga),
     fork(watchStatusCheckerSaga)

@@ -1,5 +1,7 @@
-import { isError } from "util";
 import {
+  REGISTER_USER_START,
+  REGISTER_USER_SUCCESS,
+  REGISTER_USER_FAILURE,
   LOGIN_USER_START,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
@@ -10,7 +12,6 @@ import {
   LOGOUT_USER_FAILURE,
   LOGOUT_USER_SUCCESS,
 } from "../actions/auth.js";
-import { logout } from "../apis/auth.js";
 
 
 const initialState = {
@@ -42,6 +43,38 @@ const initialState = {
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case REGISTER_USER_START:
+      return {
+        ...state,
+        register:{
+          ...state.register,
+          isloading:true,
+        }
+      };
+    case REGISTER_USER_SUCCESS:
+      return {
+        ...state,
+        register:{
+          ...state.register,
+          data: action.payload,
+          isloading: false,
+        },
+        utils:{
+          ...state.utils,
+          accessToken: action.payload.token,
+          userId: action.payload.userId,
+        }
+      };
+    case REGISTER_USER_FAILURE:
+      alert("ERROR: " + "Something went wrong!")
+      return {
+        ...state,
+        register:{
+          ...state.register,
+          isloading: false,
+          isError: action.payload.error,
+        }
+      };
     case LOGIN_USER_START:
       return {
         ...state,
@@ -66,6 +99,7 @@ export const authReducer = (state = initialState, action) => {
         
       };
     case LOGIN_USER_FAILURE:
+      alert("ERROR: " + "Invalid Credential")
       return {
         ...state,
         login:{

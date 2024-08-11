@@ -1,6 +1,6 @@
-"use client"
-import React,{useState} from 'react';
-import Popover from '@mui/material/Popover';
+"use client";
+import React, { useState } from "react";
+import Popover from "@mui/material/Popover";
 
 export default function usePopover() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -14,10 +14,9 @@ export default function usePopover() {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const id = open ? "simple-popover" : undefined;
 
-
-  const PopperComponent = ({children}) => {
+  const PopperComponent = ({ children }) => {
     return (
       <Popover
         id={id}
@@ -25,19 +24,24 @@ export default function usePopover() {
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
+          vertical: "bottom",
+          horizontal: "right",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
+        }}
+        PaperProps={{
+          onClick: (event) => {
+            // Stop the click event from propagating to the parent, preventing the popover from closing
+            event.stopPropagation();
+          },
         }}
       >
         {children}
       </Popover>
     );
-  }
+  };
 
-
-  return {handleClick,handleClose,PopperComponent};
+  return { handleClick, handleClose, PopperComponent };
 }

@@ -1,11 +1,7 @@
 import {
-  FETCH_USERS_LIST_START,
-  FETCH_USERS_LIST_SUCCESS,
-	FETCH_USERS_LIST_FAILURE,
-  DELETE_USER,
-  DELETE_USER_SUCCESS,
-  UPDATE_USER,
-  UPDATE_USER_SUCCESS
+  FETCH_USER_LOGIN,
+  FETCH_USER_LOGIN_SUCCESS,
+  FETCH_USER_LOGIN_FAILURE,
 } from "../actions/user.js";
 
 const initialState = {
@@ -14,66 +10,38 @@ const initialState = {
     isloading:false,
     isError:false,
   },
-	usersList:{
-    data:[],
-    isloading:false,
-    isError:false,
-  }
 };
 
 export const userReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case FETCH_USERS_LIST_START:
-			return {
-				...state,
-        usersList:{
-          ...state.usersList,
+    case FETCH_USER_LOGIN:
+      return {
+        ...state,
+        user:{
+          ...state.user,
           isloading:true,
         }
-			};
-		case FETCH_USERS_LIST_SUCCESS:
-			return {
-				...state,
-        usersList:{
-          ...state.usersList,
+      };
+    case FETCH_USER_LOGIN_SUCCESS:
+      return {
+        ...state,
+        user:{
+          ...state.user,
           data: action.payload,
           isloading: false,
         }
-			};
-		case FETCH_USERS_LIST_FAILURE:
-			return {
-				...state,
-        usersList:{
-          ...state.usersList,
+      };
+    case FETCH_USER_LOGIN_FAILURE:
+      return {
+        ...state,
+        user:{
+          ...state.user,
+          isError: action.payload,
           isloading: false,
-          isError: action.payload.error,
         }
-			};
-  
-    case DELETE_USER:
-      return{
-        ...state
-      }
-    case DELETE_USER_SUCCESS:
-      return{
-        ...state,
-        usersList:{
-          ...state.usersList,
-          data: state.users.data.filter(user=>user._id!==action.payload._id)
-        }
-      }
-    case UPDATE_USER:
-      return{
-        ...usersList
-      }
-    case UPDATE_USER_SUCCESS:
-      return{
-        ...state,
-        usersList:{
-          ...state.usersList,
-          data: state.users.data.map(user=>user._id===action.payload._id?action.payload:user)
-        }
-      }
+      };
+
+		
 		default:
 			return state;
 	}

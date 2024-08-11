@@ -1,52 +1,94 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useFormik } from 'formik'
 import Textfield from '@/components/Textfield'
 import { Button } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import Chip from '@mui/material/Chip';
-
-
-const LoginPage = () => {
+import { registerUser } from '@/store/actions/auth'
+import { useDispatch,useSelector } from 'react-redux'
+const RegisterPage = () => {
+  const utils = useSelector((state:any)=>state.auth.utils);
+  const dispatch = useDispatch();
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
-      username: '',
+      name: '',
+      email:"",
       password: '',
-      confirmPassword: ''
+      role:"user",
+      confirmPassword: '',
+      contactNumber:''
     },
     validate: (values) => {
-      let errors:{ username?: string, password?: string ,confirmPassword?:string} = {};
-      if (!values.username) {
-        errors.username = 'Required Username';
+      let errors:{ name?: string, password?: string ,confirmPassword?:string,contactNumber?:string,email?:string} = {};
+      if (!values.name) {
+        errors.name = 'Required Full Name';
+      }
+      if (!values.contactNumber) {
+        errors.contactNumber = 'Required Contact Number';
+      }
+      if(!/^\d{11}$/.test(values.contactNumber)){
+        errors.contactNumber = 'Invalid Contact Number';
+      }
+      if (!values.email) {
+        errors.email = 'Required Email';
+      }
+      if(!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(values.email)){
+        errors.email = 'Invalid Email';
       }
       if (!values.password) {
         errors.password = 'Required Password';
       }
+
+      if(values.password.length < 6){
+        errors.password = 'Password must be at least 6 characters';
+      }
+      
       if (!values.confirmPassword) {
         errors.confirmPassword = 'Required Confirm Password';
+      }
+      if(values.password !== values.confirmPassword){
+        errors.confirmPassword = 'Password does not match';
       }
       return errors;
     },
     onSubmit: async (values) => {
-      console.log(process.env.NEXT_PUBLIC_SAMPLE_USERNAME)
-      if(values.username === process.env.NEXT_PUBLIC_SAMPLE_USERNAME && values.password === process.env.NEXT_PUBLIC_SAMPLE_PASSWORD){
-        router.push('/');
-      }
-      
+      dispatch(registerUser({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        role: values.role,
+        contactNumber: values.contactNumber
+      }));
     }
   });
+
+  useEffect(() => {
+    if(utils.accessToken){
+      router.push('/');
+    }
+  }, [utils]);
 
   return (
     <div className='bg-[#ececec] w-[100%] min-h-[100vh] flex flex-col items-center justify-center'>
       <div className="p-7 rounded-xl bg-[white] w-[95%] max-w-[400px]">
         <Chip label="Go Back" onClick={()=>{router.back()}}/>
-        <h2 className='text-center text-[25px] font-bold text-primary mt-4'>Sign Up</h2>
-        <p className='text-center opacity-85'>Register and be part of us</p>
+        <h2 className='text-center text-[25px] font-bold text-primary mt-4'>SIGN UP</h2>
+        <p className='text-center text-[14px] font-semibold opacity-60'>🎊 Register & Be Part of Us 🎊</p>
         <form onSubmit={formik.handleSubmit} className='flex flex-col gap-4 mt-5'>
-          <Textfield label='Username' type='text' placeholder='' value={formik.values.username} onChange={formik.handleChange} name="username" 
-            error={formik.touched.username && formik.errors.username !== undefined}
-            errorMessages={formik.errors.username}
+          <Textfield label='Full Name' type='text' placeholder='' value={formik.values.name} onChange={formik.handleChange} name="name" 
+            error={formik.touched.name && formik.errors.name !== undefined}
+            errorMessages={formik.errors.name}
+          />
+          <Textfield label='Contact Number' type='tel' placeholder='' value={formik.values.contactNumber}  name="contactNumber" 
+            onChange={formik.handleChange}
+            error={formik.touched.contactNumber && formik.errors.contactNumber !== undefined}
+            errorMessages={formik.errors.contactNumber}
+          />
+          <Textfield label='Email' type='text' placeholder='' value={formik.values.email} onChange={formik.handleChange} name="email" 
+            error={formik.touched.email && formik.errors.email !== undefined}
+            errorMessages={formik.errors.email}
           />
           <Textfield label='Password' type='password' placeholder='' value={formik.values.password} onChange={formik.handleChange} name="password" 
             error={formik.touched.password && formik.errors.password !== undefined}
@@ -57,7 +99,7 @@ const LoginPage = () => {
             errorMessages={formik.errors.confirmPassword}
           />
           <Button type="submit" variant="contained" color="primary" className='mt-4'>
-            Login
+            Sign Up
           </Button>
           <p className='text-center text-[13px] mt-[-5px] text-[black]/50'>Have an account? <span className='underline text-[black]/80 font-semibold cursor-pointer hover:text-[black]/100' onClick={()=>{ router.push('/login');}}>Login</span></p>
         </form>
@@ -66,4 +108,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
