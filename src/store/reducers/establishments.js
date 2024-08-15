@@ -17,9 +17,11 @@ import {
   FETCH_OWNED_ESTABLISHMENTS,
   FETCH_OWNED_ESTABLISHMENTS_SUCCESS,
   FETCH_OWNED_ESTABLISHMENTS_FAILURE,
-  RESET_UPDATE_ESTABLISHMENT
+  RESET_UPDATE_ESTABLISHMENT,
+  DELETE_ESTABLISHMENT,
+  DELETE_ESTABLISHMENT_SUCCESS,
+  DELETE_ESTABLISHMENT_FAILURE,
 } from '../actions/establishments';
-
 const initialState = {
   recommendations: {
     data: [],
@@ -50,6 +52,11 @@ const initialState = {
   },
   owned:{
     data:[],
+    isLoading:false,
+    isError:false,
+  },
+  delete:{
+    data:{},
     isLoading:false,
     isError:false,
   }
@@ -173,7 +180,6 @@ export const establishmentReducer = (state = initialState, action) => {
         }
       }
     case UPDATE_ESTABLISHMENT_FAILURE:
-      alert("ERROR: " + "Something went wrong!")
       return {
         ...state,
         update:{
@@ -229,7 +235,32 @@ export const establishmentReducer = (state = initialState, action) => {
           isError:true
         }
       }
-
+    case DELETE_ESTABLISHMENT:
+      return {
+        ...state,
+        delete:{
+          isLoading:true,
+          isError:false
+        }
+      }
+    case DELETE_ESTABLISHMENT_SUCCESS:
+      return {
+        ...state,
+        delete:{
+          data:action.payload,
+          isLoading:false,
+          isError:false
+        }
+      }
+    case DELETE_ESTABLISHMENT_FAILURE:
+      alert("ERROR: " + "Something went wrong!")
+      return {
+        ...state,
+        delete:{
+          isLoading:false,
+          isError:true
+        }
+      }
     default:
       return state;
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import IconButton from '@mui/material/IconButton';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import Tooltip from '@mui/material/Tooltip';
@@ -10,23 +10,35 @@ import { useFormik } from 'formik';
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilterValue } from '@/store/actions/establishments';
-
+import { updatePreferences } from '@/store/actions/user';
 export default function LandingFilter() {
   const dispatch = useDispatch();
-  const utils = useSelector((state) => state.establishments.utils);
+  const utils = useSelector((state) => state?.user?.user?.data);
 
   const { handleClick, handleClose, PopperComponent } = usePopover();
-
+  
   const formik = useFormik({
     initialValues: {
       barangay: utils?.barangay || [], // Use an empty array as a fallback
-      type: utils?.types || [], // Use an empty array as a fallback
+      type: utils?.preferences || [], // Use an empty array as a fallback
     },
     onSubmit: values => {
       dispatch(setFilterValue(values));
+      
     },
   });
 
+  useEffect(()=>{
+    formik.setValues({
+      ...formik.values,
+      barangay: utils?.barangay || [],
+      type: utils?.preferences || [],
+    });
+    dispatch(setFilterValue({
+      barangay: utils?.barangay || [],
+      type: utils?.preferences || [],
+    }));
+  },[utils?.preferences, utils?.barangay])
   return (
     <>
       <Tooltip title="Filter">

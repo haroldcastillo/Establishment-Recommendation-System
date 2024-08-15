@@ -13,6 +13,9 @@ import ImagesEstablishment from '@/components/ImagesEstablishment';
 import usePopover from '@/hooks/usePopover';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MenuItem from '@mui/material/MenuItem'
+import DeleteEstablishment from '@/components/DeleteEstablishment';
+
+import FavoriteComponent from '@/components/FavoriteComponent';
 
 export default function Establishment({params}) {
   const { handleClick, handleClose, PopperComponent} = usePopover()
@@ -47,7 +50,7 @@ export default function Establishment({params}) {
       {/* title */}
       <div className='flex justify-between mb-4 items-center' >
         <div>
-          <h1 className='text-[20px] font-bold first-letter:uppercase' >{view.data.name}</h1>
+          <h1 className='text-[20px] font-bold first-letter:uppercase'>{view.data.name}</h1>
           <h2 className='text-[14px] first-letter:uppercase'><LocationOnIcon sx={{ fontSize: 15 }}/>{view.data.address}</h2>
         </div>
         {isOwner?<>
@@ -64,19 +67,12 @@ export default function Establishment({params}) {
                 <MenuItem onClick={()=>{router.push(`/establishment/edit/${view.data._id}`)}}>
                   <p className='font-bold opacity-70 text-[12px]'>Edit</p>
                 </MenuItem>
-                
-                <MenuItem onClick={()=>{}}>
-                  <p className='font-bold opacity-70 text-[12px]'>Delete</p>
-                </MenuItem>
+                <DeleteEstablishment id={params.id}/>
               </div>
             </Paper>
           </PopperComponent>
         </>:<>
-          <Tooltip title="Add favorites">
-            <IconButton aria-label="" onClick={()=>{}}>
-              <FavoriteBorderIcon/>
-            </IconButton>
-          </Tooltip>
+          <FavoriteComponent id={view.data._id}/>
         </>}
         
       </div>

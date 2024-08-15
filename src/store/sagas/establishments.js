@@ -21,7 +21,10 @@ import {
   fetchOwnedEstablishmentsFailure,
   UPDATE_ESTABLISHMENT,
   updateEstablishmentSuccess,
-  updateEstablishmentFailure
+  updateEstablishmentFailure,
+  DELETE_ESTABLISHMENT,
+  deleteEstablishmentSuccess,
+  deleteEstablishmentFailure,
 } 
 from "../actions/establishments";
 
@@ -32,7 +35,8 @@ import {
   createEstablishment,
   getEstablishmentByUser,
   addViews,
-  updateEstablishment
+  updateEstablishment,
+  deleteEstablishment
 }
 from "../apis/establishments";
 
@@ -85,6 +89,16 @@ function* updateEstablishmentSaga(props){
   }
 }
 
+function* deleteEstablishmentSaga(props){
+  try{
+    const response = yield call(deleteEstablishment,props.payload);
+    yield put(deleteEstablishmentSuccess(response.data));
+  }catch(error){
+    yield put(deleteEstablishmentFailure({error:error.toString()}));
+  }
+}
+
+
 
 
 {/* ====== Watcher SAGA ====== */ }
@@ -109,8 +123,11 @@ function* watchFetchOwnedEstablishmentsSaga() {
   yield takeLatest(FETCH_OWNED_ESTABLISHMENTS, fetchOwnedEstablishmentsSaga);
 }
 
+function* watchDeleteEstablishmentSaga() {
+  yield takeLatest(DELETE_ESTABLISHMENT, deleteEstablishmentSaga);
+}
 
-
+{/* ====== Establishments SAGA ====== */ }
 
 export default function* establishmentsSaga() {
   yield all([
@@ -118,6 +135,7 @@ export default function* establishmentsSaga() {
     fork(watchFetchEstablishmentsSaga),
     fork(watchFetchEstablishmentSaga),
     fork(watchFetchOwnedEstablishmentsSaga),
-    fork(watchUpdateEstablishmentSaga)
+    fork(watchUpdateEstablishmentSaga),
+    fork(watchDeleteEstablishmentSaga),
   ]);
 }

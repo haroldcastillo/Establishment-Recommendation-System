@@ -24,6 +24,11 @@ export const FETCH_OWNED_ESTABLISHMENTS = 'FETCH_OWNED_ESTABLISHMENTS';
 export const FETCH_OWNED_ESTABLISHMENTS_SUCCESS = 'FETCH_OWNED_ESTABLISHMENTS_SUCCESS';
 export const FETCH_OWNED_ESTABLISHMENTS_FAILURE = 'FETCH_OWNED_ESTABLISHMENTS_FAILURE';
 
+export const DELETE_ESTABLISHMENT = 'DELETE_ESTABLISHMENT';
+export const DELETE_ESTABLISHMENT_SUCCESS = 'DELETE_ESTABLISHMENT_SUCCESS';
+export const DELETE_ESTABLISHMENT_FAILURE = 'DELETE_ESTABLISHMENT_FAILURE';
+
+
 
 export function fetchEstablishments({
   search,
@@ -31,7 +36,6 @@ export function fetchEstablishments({
   barangay,
   currentPage,
 }) {
-  console.warn(search, type, barangay, currentPage);
   return {
     type: FETCH_ESTABLISHMENTS,
     payload: {
@@ -140,7 +144,6 @@ export function updateEstablishmentFailure({ error }) {
 }
 
 export function fetchOwnedEstablishments({ userId }) {
-  console.warn("action",userId);
   return {
     type: FETCH_OWNED_ESTABLISHMENTS,
     payload: {
@@ -165,5 +168,25 @@ export function fetchOwnedEstablishmentsFailure({ error }) {
   };
 }
 
+export function deleteEstablishment(id) {
+  return {
+    type: DELETE_ESTABLISHMENT,
+    payload: id,
+  };
+}
 
+export function deleteEstablishmentSuccess(payload) {
+  return {
+    type: DELETE_ESTABLISHMENT_SUCCESS,
+    payload
+  };
+}
 
+export function deleteEstablishmentFailure({ error }) {
+  return {
+    type: DELETE_ESTABLISHMENT_FAILURE,
+    payload: {
+      error,
+    },
+  };
+}

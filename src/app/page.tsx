@@ -5,7 +5,6 @@ import CircleIcon from '@mui/icons-material/Circle';
 
 import BaseLayout from '@/layout/baseLayout';
 import Recommendation from '@/app/landingPageSection/Recommendation'
-
 export default function Home() {
   const videos = [
     "/images/vid-1.mp4",

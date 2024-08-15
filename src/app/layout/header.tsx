@@ -55,8 +55,8 @@ export default function Header() {
                     <MenuItem onClick={()=>{router.push("/contact")}}>Contact</MenuItem>
                   </div>
                   <Divider variant="fullWidth" orientation="horizontal" className='mb-2'/>
+                  <MenuItem onClick={()=>{router.push("/my-favorites")}}>My Favorites</MenuItem>
                   <MenuItem onClick={()=>{router.push("/establishment/my-list")}}>My Establisments</MenuItem>
-                  <MenuItem onClick={()=>{}}>My Favorites</MenuItem>
                   <MenuItem onClick={()=>{dispatch(logoutUser())}}>Logout</MenuItem>
                 </div>
                 

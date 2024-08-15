@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "@/lib/Providers"
 import StatusCheckerProvider from "@/lib/StatusCheckerProvider"
+import Preference from './preference/Preference'
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,7 +21,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <StatusCheckerProvider>
-            {children}
+            <Preference>
+              {children}
+            </Preference>
           </StatusCheckerProvider>
         </Providers>
       </body>

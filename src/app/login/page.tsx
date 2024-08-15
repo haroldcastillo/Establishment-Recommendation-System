@@ -34,7 +34,7 @@ const LoginPage = () => {
   const utils = useSelector((state:any) => state.auth.utils);
   useEffect(() => {
     if(utils.accessToken){
-      router.push('/');
+      router.back();
     }
   }, [utils]);
   return (

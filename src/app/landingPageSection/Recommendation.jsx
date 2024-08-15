@@ -25,18 +25,22 @@ export default function Recommendation() {
   }
   return <>
     <div className="max-w-screen-lg mx-auto p-4">
-      <div className='flex justify-between items-end mb-5'>
+      <div className='flex justify-between items-end mb-5 flex-wrap'>
         <h1 className='text-[20px] font-semibold opacity-80'>Recommendations</h1>
         <div className='flex justify-center gap-2 items-center'>
           <LandingSearchInput />
           <LandingFilter />
         </div>
       </div>
-      <div className='grid gap-4' style={{ gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))" }}>
-        {establishments && establishments?.data?.map((item, index) => (
-          <CardComponent key={index} title={item.name} img="images/sss1.jpg" description={item.barangay} onClick={() => {router.push(`/establishment/${item._id}`)}} />
-        ))}
-      </div>
+      {establishments && establishments.data && establishments.data.length > 0 ? (
+        <div className='grid gap-4' style={{ gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))" }}>
+          {establishments.data.map((item, index) => (
+            <CardComponent id={item._id} key={index} title={item.name}  creatorId={item.creatorId} img="images/sss1.jpg" description={item.barangay} onClick={() => {router.push(`/establishment/${item._id}`)}} />
+          ))}
+        </div>
+      ) : (
+        <div className='flex justify-center items-center min-h-[400px]'>No results found.</div>
+      )}
     </div>
   </>
 }

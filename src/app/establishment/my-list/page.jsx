@@ -5,7 +5,8 @@ import { useSelector, useDispatch} from 'react-redux';
 import AddIcon from '@mui/icons-material/Add';
 import Chip from '@mui/material/Chip';
 import { useRouter } from 'next/navigation';
-import { fetchOwnedEstablishments } from '@/store/actions/establishments';
+import { fetchOwnedEstablishments,RESET_CREATE_ESTABLISHMENT} from '@/store/actions/establishments';
+
 function page() {
   const dispatch = useDispatch()
   const router = useRouter()
@@ -29,7 +30,11 @@ function page() {
         <h1 className='text-[20px] font-semibold opacity-80'>My Establishments</h1>
         <Chip
           label="Add Establishment"
-          onClick={()=>{router.push('/establishment/create')}}
+          onClick={()=>{
+            router.push('/establishment/create')
+            dispatch({type: RESET_CREATE_ESTABLISHMENT}) // Use the imported action type
+          
+          }}
           variant="outlined"
           icon={<AddIcon />}
         />
@@ -37,7 +42,7 @@ function page() {
       <hr  className='mb-4'/>
       <div className='grid gap-4' style={{ gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))" }}>
           {establishments && establishments?.data?.map((item, index) => (
-            <CardComponent key={index} title={item.name} img="images/sss1.jpg" description={item.barangay} onClick={() => {router.push(`/establishment/${item._id}`)}} />
+            <CardComponent id={item._id} creatorId={item.creatorId} key={index} title={item.name} img="images/sss1.jpg" description={item.barangay} onClick={() => {router.push(`/establishment/${item._id}`)}} />
           ))}
         </div>
       </div>

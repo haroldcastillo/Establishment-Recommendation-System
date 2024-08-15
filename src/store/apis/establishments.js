@@ -11,7 +11,6 @@ export const getEstablishment = async (id) => {
 
 export const createEstablishment = async (payload) => {
   const response = await instance.post("/establishments", payload);
-  console.warn(response.data)
   return response.data;
 }
 
@@ -27,6 +26,11 @@ export const addViews = async (id) => {
 
 export const updateEstablishment = async (payload) => {
   const response = await instance.patch(`/establishments/${payload._id}`, payload);
+  return response.data;
+}
+
+export const deleteEstablishment = async (id) => {
+  const response = await instance.delete(`/establishments/${id}`);
   return response.data;
 }
 
