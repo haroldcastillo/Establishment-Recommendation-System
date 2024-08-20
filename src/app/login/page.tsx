@@ -12,8 +12,8 @@ const LoginPage = () => {
 
   const formik = useFormik({
     initialValues: {
-      username: 'haroldcastillo272@gmail.com',
-      password: '@Sample'
+      username: '',
+      password: ''
     },
     validate: (values) => {
       let errors:{ username?: string, password?: string } = {};
@@ -27,7 +27,6 @@ const LoginPage = () => {
     },
     onSubmit: async (values,{resetForm}) => {
       dispatch(loginUser({email: values.username, password: values.password}));
-      resetForm();
     }
   });
 

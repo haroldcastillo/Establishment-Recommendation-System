@@ -12,7 +12,7 @@ export default function FavoriteComponent({id}) {
   const dispatch = useDispatch()
   const userId = useSelector(state => state.auth?.utils?.userId)
   const myFavorites = useSelector(state => state.favorite?.users?.data)
-  const isFavorite = myFavorites?.find(fav => fav.establishmentId === id)
+  const isFavorite = myFavorites?.find(fav => fav?.establishmentId === id)
 
   const formik = useFormik({
     initialValues: {
