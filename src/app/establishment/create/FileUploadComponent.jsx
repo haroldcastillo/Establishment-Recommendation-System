@@ -1,12 +1,24 @@
 import React, { useState, useRef } from "react";
 
+import useFirebase from "@/hooks/useFirebase";
 export default function FileUploadComponent() {
     const fileInput = useRef(null);
-
-    const handleUploadClick = (e) => {};
+    const { uploadFile } = useFirebase();
+    const handleUploadClick = async (e) => {
+        const file = await uploadFile(e.target.files[0],"establisment_images");
+        console.log(file);
+    };
     return (
         <>
-            <div></div>
+            <div>
+                <button
+                    onClick={() => {
+                        fileInput.current.click();
+                    }}
+                >
+                    Upload
+                </button>
+            </div>
             <input
                 type="file"
                 style={{
