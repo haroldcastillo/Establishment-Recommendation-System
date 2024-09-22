@@ -225,14 +225,15 @@ export default function page() {
                     <div>
                         <Typography variant="body1" color="initial">
                             Pictures (At least 3)
-                            {formik.errors.picture && (
-                                <>
-                                    <br />
-                                    <span className="text-red-500">
-                                        {formik.errors.picture}
-                                    </span>
-                                </>
-                            )}
+                            {formik.touched.picture &&
+                                formik.errors.picture && (
+                                    <>
+                                        <br />
+                                        <span className="text-red-500">
+                                            {formik.errors.picture}
+                                        </span>
+                                    </>
+                                )}
                         </Typography>
                         <FileUploadComponent formik={formik} />
                         <Box display="flex">
