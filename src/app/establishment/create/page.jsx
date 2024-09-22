@@ -27,7 +27,7 @@ export default function page() {
             barangay: BarangayList[0],
             phone: "",
             type: EstablishmentType[0],
-            picture: [] | null,
+            picture: [],
             open: "",
             close: "",
             facebook: "",
@@ -61,6 +61,9 @@ export default function page() {
             }
             if (!values.facebook) {
                 errors.facebook = "Required";
+            }
+            if (values.picture.length < 3 || values.picture === null) {
+                errors.picture = "At least 3 pictures are required";
             }
             return errors;
         },
@@ -221,14 +224,21 @@ export default function page() {
                     <Divider variant="fullWidth" orientation="horizontal" />
                     <div>
                         <Typography variant="body1" color="initial">
-                            Pictures
+                            Pictures (At least 3)
+                            {formik.errors.picture && (
+                                <>
+                                    <br />
+                                    <span className="text-red-500">
+                                        {formik.errors.picture}
+                                    </span>
+                                </>
+                            )}
                         </Typography>
-                        <FileUploadComponent />
+                        <FileUploadComponent formik={formik} />
                         <Box display="flex">
                             <Box
                                 sx={{
                                     background: `url(https://sample-videos.com/img/Sample-jpg-image-10mb.jpg)`,
-                                    
                                 }}
                             />
                         </Box>
