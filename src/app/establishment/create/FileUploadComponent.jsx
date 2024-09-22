@@ -43,6 +43,7 @@ export default function FileUploadComponent({ formik }) {
                 ref={fileInput}
                 onChange={handleUpload}
                 multiple
+                accept="image/*"
             />
             <Box
                 display="grid"
