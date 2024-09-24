@@ -95,7 +95,7 @@ export default function ImagesEstablishment({ images }) {
                     aria-describedby="modal-modal-description"
                     sx={{ outline: "none" }}
                 >
-                    <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] p-4  w-[100vw] h-[100vh] max-h-[400px]  max-w-[800px] flex justify-center items-center">
+                    <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] p-4  w-[100vw] h-[100vh] max-h-[400px]  max-w-[800px] flex justify-center items-center outline-none">
                         <IconButton
                             aria-label=""
                             onClick={() => {

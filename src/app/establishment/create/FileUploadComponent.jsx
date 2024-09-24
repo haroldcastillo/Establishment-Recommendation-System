@@ -5,6 +5,9 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import Skeleton from "@mui/material/Skeleton";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 export default function FileUploadComponent({ formik }) {
     const fileInput = useRef(null);
     const [loadingImages, setLoadingImages] = useState(0);
@@ -50,10 +53,11 @@ export default function FileUploadComponent({ formik }) {
                 gridTemplateColumns={"repeat(auto-fill, minmax(200px, 1fr))"}
                 sx={{ marginTop: "20px", gap: "20px" }}
             >
-                {formik.values.picture.length > 0 &&
-                    formik.values.picture.map((image, index) => (
+                {formik.values?.picture.length > 0 &&
+                    formik.values?.picture.map((image, index) => (
                         <Paper
                             elevation={2}
+                            className="imageCard"
                             key={index}
                             sx={{
                                 aspectRatio: "9/7",
@@ -62,7 +66,27 @@ export default function FileUploadComponent({ formik }) {
                                 backgroundSize: "cover",
                                 backgroundPosition: "center",
                             }}
-                        ></Paper>
+                            onMouseEnter={(e) => {}}
+                        >
+                            <Box className="imageCardNavigation" sx={{}}>
+                                <IconButton
+                                    aria-label=""
+                                    onClick={() => {
+                                        let updatedImages =
+                                            formik.values.picture.filter(
+                                                (img) => img !== image
+                                            );
+                                        formik.setFieldValue(
+                                            "picture",
+                                            updatedImages
+                                        );
+                                    }}
+                                    sx={{ ":hover": { scale: 1.2 } }}
+                                >
+                                    <DeleteIcon sx={{ color: "white" }} />
+                                </IconButton>
+                            </Box>
+                        </Paper>
                     ))}
 
                 {loadingImages > 0 &&

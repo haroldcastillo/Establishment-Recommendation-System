@@ -59,6 +59,9 @@ export default function page() {
             if (!values.close) {
                 errors.close = "Required";
             }
+            if (values.open >= values.close) {
+                errors.open = "Open time should be less than close time";
+            }
             if (!values.facebook) {
                 errors.facebook = "Required";
             }

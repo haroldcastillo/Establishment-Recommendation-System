@@ -41,7 +41,6 @@ export default function Header() {
 
                 <div className=" gap-4 translate-x-[-60px] hidden sm:flex">
                     <NavLink label="About" location="/about" />
-                    <NavLink label="News" location="/news" />
                     <NavLink label="Contact" location="/contact" />
                 </div>
                 <div className="flex gap-2 items-center">
@@ -141,6 +140,7 @@ export default function Header() {
                                     <MenuItem
                                         onClick={() => {
                                             dispatch(logoutUser());
+                                            router.push("/");
                                         }}
                                     >
                                         Logout

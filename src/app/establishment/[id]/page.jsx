@@ -100,7 +100,10 @@ export default function Establishment({ params }) {
             <ImagesEstablishment images={view?.data?.picture} />
 
             {/* Other Information */}
-            <div className="flex flex-col md:flex-row mt-4 gap-4">
+            <div
+                className="flex flex-col md:flex-row mt-4 gap-4"
+                style={{ alignItems: "start" }}
+            >
                 <div className=" grow">
                     <h2 className="text-[18px] font-bold">Description</h2>
                     <p className="text-[14px] text-justify">
@@ -110,7 +113,7 @@ export default function Establishment({ params }) {
                 <Paper
                     variant="elevation"
                     elevation="3"
-                    className="p-4 w-[100%] md:max-w-[300px]"
+                    className="p-4 w-[100%] md:max-w-[300px] shrink-0"
                 >
                     <p className="font-semibold">More Information</p>
                     <hr className="my-2" />
@@ -147,7 +150,7 @@ export default function Establishment({ params }) {
                             <IconButton
                                 aria-label=""
                                 onClick={() => {
-                                    router.push("/");
+                                    window.open(view.data.facebook, "_blank");
                                 }}
                             >
                                 <FacebookIcon sx={{ color: "black" }} />

@@ -26,7 +26,7 @@ export default function CardComponent({
             <div
                 className=" w-[100%] h-[250px] flex justify-end items-start"
                 style={{
-                    background: `url('../images/sss1.jpg')`,
+                    background: `url(${img})`,
                     backgroundSize: "cover",
                 }}
             >
