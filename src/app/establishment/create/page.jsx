@@ -82,7 +82,7 @@ export default function page() {
         }
     }, [establishment, establishment.data?._id]);
     return (
-        <div className="mt-[90px] p-4">
+        <div className="mt-[20px] p-4">
             <div className="max-w-screen-lg mx-auto p-4">
                 <div className="flex justify-between items-center mb-5">
                     <h1 className="text-[20px] font-semibold opacity-80">

@@ -37,6 +37,7 @@ const LoginPage = () => {
         if (utils.accessToken) {
             router.back();
         }
+        console.log("eqweqeqweqw", utils);
     }, [utils]);
     return (
         <div className="bg-[#ececec] w-[100%] min-h-[100vh] flex flex-col items-center justify-center">

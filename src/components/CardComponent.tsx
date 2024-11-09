@@ -36,8 +36,8 @@ export default function CardComponent({
                 <p className="grow text-[17px] font-semibold first-letter:uppercase">
                     {title}
                 </p>
-                <p className="text-primary text-[14px] ">
-                    <LocationOnIcon />
+                <p className="text-black text-[14px]  opacity-55">
+                    <LocationOnIcon sx={{ fontSize: "17px" }} />
                     {description}
                 </p>
                 <Button

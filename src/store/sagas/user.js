@@ -12,6 +12,9 @@ import {
     UPDATE_PASSWORD,
     updatePasswordSuccess,
     updatePasswordFailure,
+    FETCH_ALL_USERS,
+    fetchAllUsersSuccess,
+    fetchAllUsersFailure,
 } from "../actions/user";
 
 import {
@@ -19,6 +22,7 @@ import {
     updatePreferences,
     updateUser,
     updatePassword,
+    getAllUsers,
 } from "../apis/user";
 
 {
@@ -61,6 +65,15 @@ function* updatePasswordSaga({ payload }) {
     }
 }
 
+function* fetchAllUsersSaga() {
+    try {
+        const response = yield call(getAllUsers);
+        yield put(fetchAllUsersSuccess(response));
+    } catch (error) {
+        yield put(fetchAllUsersFailure(error));
+    }
+}
+
 {
     /* ====== WATCHER SAGA ====== */
 }
@@ -81,6 +94,10 @@ function* watchUpdatePassword() {
     yield takeLatest(UPDATE_PASSWORD, updatePasswordSaga);
 }
 
+function* watchFetchAllUsers() {
+    yield takeLatest(FETCH_ALL_USERS, fetchAllUsersSaga);
+}
+
 {
     /* ====== COMBINED SAGA ====== */
 }
@@ -91,5 +108,6 @@ export default function* userSaga() {
         fork(watchUpdatePreferences),
         fork(watchUpdateUser),
         fork(watchUpdatePassword),
+        fork(watchFetchAllUsers),
     ]);
 }

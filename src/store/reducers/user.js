@@ -11,12 +11,20 @@ import {
     UPDATE_PASSWORD,
     UPDATE_PASSWORD_SUCCESS,
     UPDATE_PASSWORD_FAILURE,
+    FETCH_ALL_USERS,
+    FETCH_ALL_USERS_SUCCESS,
+    FETCH_ALL_USERS_FAILURE,
 } from "../actions/user.js";
 
 const initialState = {
     user: {
         data: {},
         isloading: false,
+        isError: false,
+    },
+    users: {
+        data: [],
+        isLoading: false,
         isError: false,
     },
     preferences: {
@@ -53,6 +61,33 @@ export const userReducer = (state = initialState, action) => {
                     ...state.user,
                     isError: action.payload,
                     isloading: false,
+                },
+            };
+
+        case FETCH_ALL_USERS:
+            return {
+                ...state,
+                users: {
+                    ...state.users,
+                    isLoading: true,
+                },
+            };
+        case FETCH_ALL_USERS_SUCCESS:
+            return {
+                ...state,
+                users: {
+                    ...state.users,
+                    data: action.payload,
+                    isLoading: false,
+                },
+            };
+        case FETCH_ALL_USERS_FAILURE:
+            return {
+                ...state,
+                users: {
+                    ...state.users,
+                    isError: action.payload,
+                    isLoading: false,
                 },
             };
         case UPDATE_PREFERENCES:

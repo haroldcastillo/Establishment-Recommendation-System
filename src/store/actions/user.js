@@ -2,6 +2,10 @@ export const FETCH_USER_LOGIN = "FETCH_USER_LOGIN";
 export const FETCH_USER_LOGIN_SUCCESS = "FETCH_USER_LOGIN_SUCCESS";
 export const FETCH_USER_LOGIN_FAILURE = "FETCH_USER_LOGIN_FAILURE";
 
+export const FETCH_ALL_USERS = "FETCH_ALL_USERS";
+export const FETCH_ALL_USERS_SUCCESS = "FETCH_ALL_USERS_SUCCESS";
+export const FETCH_ALL_USERS_FAILURE = "FETCH_ALL_USERS_FAILURE";
+
 export const UPDATE_PREFERENCES = "UPDATE_PREFERENCES";
 export const UPDATE_PREFERENCES_SUCCESS = "UPDATE_PREFERENCES_SUCCESS";
 export const UPDATE_PREFERENCES_FAILURE = "UPDATE_PREFERENCES_FAILURE";
@@ -73,7 +77,6 @@ export const updateUserFailure = ({ error }) => ({
     },
 });
 
-
 export const updatePassword = (payload) => {
     return {
         type: UPDATE_PASSWORD,
@@ -93,3 +96,20 @@ export const updatePasswordFailure = ({ error }) => ({
     },
 });
 
+export const fetchAllUsers = () => {
+    return {
+        type: FETCH_ALL_USERS,
+    };
+};
+
+export const fetchAllUsersSuccess = (payload) => ({
+    type: FETCH_ALL_USERS_SUCCESS,
+    payload,
+});
+
+export const fetchAllUsersFailure = ({ error }) => ({
+    type: FETCH_ALL_USERS_FAILURE,
+    payload: {
+        error,
+    },
+});

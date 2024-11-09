@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import IconButton from "@mui/material/IconButton";
 import Link from "next/link";
@@ -13,11 +13,11 @@ import { fetchUserLogin } from "@/store/actions/user";
 
 export default function Header() {
     const dispatch = useDispatch();
-    const userId = useSelector((state: any) => state.auth.utils.userId);
+    const userId = useSelector((state: any) => state?.auth?.utils.userId);
     const { handleClick, PopperComponent, handleClose } = usePopover();
     const router = useRouter();
-
     const user = useSelector((state: any) => state.user.user.data);
+    const isAdmin = user?.role === "admin";
 
     useEffect(() => {
         if (userId) {
@@ -28,13 +28,13 @@ export default function Header() {
     return (
         <div className="fixed top-0 w-[100vw] z-[40] h-[70px]">
             <div className="bg-[#ADD8E6] px-4 py-3 flex justify-between items-center  pr-7">
-                <div className="w-[400px]">
+                <div className="w-[250px]">
                     <Link href={"/"}>
                         <Image
-                            src={"/images/Websitelogo.png"}
+                            src={"/images/Logo.png"}
                             alt="logo"
-                            width={150}
-                            height={150}
+                            width={60}
+                            height={60}
                         />
                     </Link>
                 </div>
@@ -121,22 +121,36 @@ export default function Header() {
                                         orientation="horizontal"
                                         className="mb-2"
                                     />
-                                    <MenuItem
-                                        onClick={() => {
-                                            router.push("/my-favorites");
-                                        }}
-                                    >
-                                        My Favorites
-                                    </MenuItem>
-                                    <MenuItem
-                                        onClick={() => {
-                                            router.push(
-                                                "/establishment/my-list"
-                                            );
-                                        }}
-                                    >
-                                        My Establisments
-                                    </MenuItem>
+                                    {!isAdmin ? (
+                                        <>
+                                            <MenuItem
+                                                onClick={() => {
+                                                    router.push(
+                                                        "/my-favorites"
+                                                    );
+                                                }}
+                                            >
+                                                My Favorites
+                                            </MenuItem>
+                                            <MenuItem
+                                                onClick={() => {
+                                                    router.push(
+                                                        "/establishment/my-list"
+                                                    );
+                                                }}
+                                            >
+                                                My Establisments
+                                            </MenuItem>
+                                        </>
+                                    ) : (
+                                        <MenuItem
+                                            onClick={() => {
+                                                router.push("/admin");
+                                            }}
+                                        >
+                                            Analytics
+                                        </MenuItem>
+                                    )}
                                     <MenuItem
                                         onClick={() => {
                                             dispatch(logoutUser());

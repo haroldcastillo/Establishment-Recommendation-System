@@ -46,7 +46,7 @@ export default function Establishment({ params }) {
         return <div>Loading...</div>;
     }
     return (
-        <div className="mt-[70px] mx-auto max-w-screen-lg px-4 pt-[70px] pb-4">
+        <div className=" mx-auto max-w-screen-lg px-4 pt-[20px] pb-4">
             {/* title */}
             <div className="flex justify-between mb-4 items-center">
                 <div>
