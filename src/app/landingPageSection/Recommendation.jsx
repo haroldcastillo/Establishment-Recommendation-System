@@ -29,7 +29,7 @@ export default function Recommendation() {
     }
     return (
         <>
-            <div className="max-w-screen-lg mx-auto p-4">
+            <div style={{ flexGrow: "1" }}>
                 <div className="flex justify-between items-end mb-5 flex-wrap">
                     <h1 className="text-[20px] font-semibold opacity-80">
                         Recommendations

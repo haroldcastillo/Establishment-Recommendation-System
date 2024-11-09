@@ -40,7 +40,7 @@ export default function page() {
                             key={index}
                             title={item.name}
                             creatorId={item.creatorId}
-                            img="images/sss1.jpg"
+                            img={item.picture[0]}
                             description={item.barangay}
                             onClick={() => {
                                 router.push(`/establishment/${item._id}`);

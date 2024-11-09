@@ -5,7 +5,19 @@ function About() {
     return (
         <BaseLayout>
             <div className="max-w-screen-lg mx-auto p-4 mt-10">
-                <div className="mt-[4em]">
+                <div className="mt-[1em]">
+                    <video
+                        src={"/images/vid-1.mp4"}
+                        autoPlay
+                        loop
+                        muted
+                        style={{
+                            borderRadius: "10px",
+                            width: "100%",
+                            height: "auto",
+                            marginBottom: "1em",
+                        }}
+                    />
                     <h5 className="text-[25px] font-semibold opacity-90 mb-2">
                         Welcome to Marikina City
                     </h5>

@@ -14,7 +14,7 @@ import usePopover from "@/hooks/usePopover";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import MenuItem from "@mui/material/MenuItem";
 import DeleteEstablishment from "@/components/DeleteEstablishment";
-
+import Alert from "@mui/material/Alert";
 import FavoriteComponent from "@/components/FavoriteComponent";
 
 export default function Establishment({ params }) {
@@ -46,8 +46,19 @@ export default function Establishment({ params }) {
         return <div>Loading...</div>;
     }
     return (
-        <div className=" mx-auto max-w-screen-lg px-4 pt-[20px] pb-4">
+        <div className=" mx-auto max-w-screen-lg px-4 pt-[20px] pb-4 mt-[2em]">
             {/* title */}
+            {!view.data?.isVerified ? (
+                <Alert
+                    variant="filled"
+                    severity="warning"
+                    sx={{ marginBottom: "1em" }}
+                >
+                    This is not verified by the admin. Please wait for the admin
+                    to verify this establishment.
+                </Alert>
+            ) : null}
+
             <div className="flex justify-between mb-4 items-center">
                 <div>
                     <h1 className="text-[20px] font-bold first-letter:uppercase">

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import CircleIcon from "@mui/icons-material/Circle";
-
+import FavoritesList from "@/app/landingPageSection/FavoritesList";
 import BaseLayout from "@/layout/baseLayout";
 import Recommendation from "@/app/landingPageSection/Recommendation";
 export default function Home() {
@@ -25,7 +25,13 @@ export default function Home() {
                         </p>
                     </div>
                 </div>
-                <Recommendation />
+                <div
+                    className="max-w-screen-xl mx-auto p-4"
+                    style={{ display: "flex" }}
+                >
+                    <Recommendation />
+                    <FavoritesList />
+                </div>
             </section>
         </BaseLayout>
     );

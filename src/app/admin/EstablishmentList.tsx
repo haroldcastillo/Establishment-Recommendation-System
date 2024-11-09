@@ -133,9 +133,6 @@ export default function EstablishmentList() {
                                     <div
                                         style={{ gap: "1em", display: "flex" }}
                                     >
-                                        <Button variant="text" color="primary">
-                                            Remove
-                                        </Button>
                                         {!row.isVerified && (
                                             <Button
                                                 variant="contained"

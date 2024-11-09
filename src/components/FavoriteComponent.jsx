@@ -9,6 +9,7 @@ import {
     fetchFavoriteUsers,
     addFavorite,
     removeFavorite,
+    fetchMyFavorites,
 } from "@/store/actions/favorite";
 import { useFormik } from "formik";
 export default function FavoriteComponent({ id }) {
@@ -29,6 +30,7 @@ export default function FavoriteComponent({ id }) {
                 dispatch(removeFavorite({ id: isFavorite._id }));
             } else {
                 dispatch(addFavorite(values));
+                dispatch(fetchMyFavorites({ userId }));
                 console.warn(values);
             }
         },
