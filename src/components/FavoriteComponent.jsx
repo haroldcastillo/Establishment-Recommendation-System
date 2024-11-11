@@ -25,11 +25,11 @@ export default function FavoriteComponent({ id }) {
             establishmentId: id,
             type: "establishment",
         },
-        onSubmit: (values) => {
+        onSubmit: async (values) => {
             if (isFavorite) {
                 dispatch(removeFavorite({ id: isFavorite._id }));
             } else {
-                dispatch(addFavorite(values));
+                await dispatch(addFavorite(values));
                 dispatch(fetchMyFavorites({ userId }));
                 console.warn(values);
             }
