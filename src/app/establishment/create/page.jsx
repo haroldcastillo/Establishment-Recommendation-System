@@ -47,9 +47,7 @@ export default function page() {
             if (!values.barangay) {
                 errors.barangay = "Required";
             }
-            if (!values.phone) {
-                errors.phone = "Required";
-            }
+
             if (!values.type) {
                 errors.type = "Required";
             }
@@ -62,9 +60,7 @@ export default function page() {
             if (values.open >= values.close) {
                 errors.open = "Open time should be less than close time";
             }
-            if (!values.facebook) {
-                errors.facebook = "Required";
-            }
+
             if (values.picture.length < 3 || values.picture === null) {
                 errors.picture = "At least 3 pictures are required";
             }
@@ -155,7 +151,7 @@ export default function page() {
                         style={{ gridTemplateColumns: "1fr 1fr" }}
                     >
                         <Textfield
-                            label="Facebook Link*"
+                            label="Facebook Link"
                             placeholder="Facebook Link"
                             type="text"
                             value={formik.values.facebook}
@@ -185,7 +181,7 @@ export default function page() {
                         style={{ gridTemplateColumns: "1fr .5fr .5fr" }}
                     >
                         <Textfield
-                            label="Phone*"
+                            label="Phone"
                             placeholder="Phone"
                             type="text"
                             value={formik.values.phone}

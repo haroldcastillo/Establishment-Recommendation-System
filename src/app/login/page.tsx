@@ -52,7 +52,7 @@ const LoginPage = () => {
                     LOGIN
                 </h2>
                 <p className="text-center font-semibold text-[14px] opacity-60">
-                    Welcome Back!👋
+                    Welcome to Marikina City
                 </p>
                 <form
                     onSubmit={formik.handleSubmit}

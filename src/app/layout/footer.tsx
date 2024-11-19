@@ -11,11 +11,6 @@ export default function footer() {
                         ©AtMarikina {new Date().getFullYear()} All Rights
                         Reserved
                     </p>
-                    <div className="flex gap-4">
-                        <NavLink label="Home" location="/" />
-                        <NavLink label="About" location="/about" />
-                        <NavLink label="Contact" location="/contact" />
-                    </div>
                 </Container>
             </footer>
         </>
