@@ -1,6 +1,7 @@
 import React from "react";
 import Container from "@mui/material/Container";
 import BaseLayout from "@/layout/baseLayout";
+import Paper from "@mui/material/Paper";
 function About() {
     return (
         <BaseLayout>
@@ -61,6 +62,35 @@ function About() {
                         quiet, agricultural town into a bustling urban center
                         that seamlessly blends tradition with modernity.
                     </p>
+                </div>
+                <div style={{ display: "flex", marginTop: "1em" }}>
+                    <Paper
+                        variant="elevation"
+                        elevation={3}
+                        sx={{
+                            padding: "1em",
+                            borderRadius: "10px",
+                        }}
+                    >
+                        <h3
+                            style={{
+                                fontSize: "1.5em",
+                                fontWeight: "bold",
+                            }}
+                        >
+                            Contact Us
+                        </h3>
+                        <p
+                            style={{
+                                fontSize: "1em",
+                                opacity: "0.8",
+                                marginBottom: ".4em",
+                            }}
+                        >
+                            For inquiries, please contact us at:{" "}
+                        </p>
+                        <strong>atmarikinahelpdesk@gmail.com</strong>
+                    </Paper>
                 </div>
             </div>
         </BaseLayout>
