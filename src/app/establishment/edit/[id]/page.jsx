@@ -49,9 +49,6 @@ export default function page({ params }) {
             if (!values.barangay) {
                 errors.barangay = "Required";
             }
-            if (!values.phone) {
-                errors.phone = "Required";
-            }
             if (!values.type) {
                 errors.type = "Required";
             }
@@ -64,9 +61,7 @@ export default function page({ params }) {
             if (values.open >= values.close) {
                 errors.open = "Open time should be less than close time";
             }
-            if (!values.facebook) {
-                errors.facebook = "Required";
-            }
+
             if (!values.facebook.includes("https://www.facebook.com/")) {
                 errors.facebook = "Invalid Facebook Link";
             }
