@@ -62,9 +62,9 @@ export default function Page({ params }) {
                 errors.open = "Open time should be less than close time";
             }
 
-            if (!values.facebook.includes("https://www.facebook.com/")) {
-                errors.facebook = "Invalid Facebook Link";
-            }
+            // if (!values.facebook.includes("https://www.facebook.com/")) {
+            //     errors.facebook = "Invalid Facebook Link";
+            // }
             if (values.picture.length < 3 || values.picture === null) {
                 errors.picture = "At least 3 pictures are required";
             }
