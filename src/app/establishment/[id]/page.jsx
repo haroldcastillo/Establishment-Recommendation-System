@@ -158,19 +158,20 @@ export default function Establishment({ params }) {
                             <p className="font-bold opacity-70 text-[12px]">
                                 Facebook
                             </p>
-                            <IconButton
-                                aria-label=""
-                                onClick={() => {
-                                    // if (typeof window !== "undefined") {
-                                    //     window.open(
-                                    //         view.data.facebook,
-                                    //         "_blank"
-                                    //     );
-                                    // }
-                                }}
-                            >
-                                <FacebookIcon sx={{ color: "black" }} />
-                            </IconButton>
+                            {view.data.facebook ? (
+                                <a
+                                    href={view.data.facebook}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <IconButton
+                                        aria-label=""
+                                        onClick={() => {}}
+                                    >
+                                        <FacebookIcon sx={{ color: "black" }} />
+                                    </IconButton>
+                                </a>
+                            ) : null}
                         </div>
                         <div className="flex justify-between items-center"></div>
                     </div>
