@@ -161,12 +161,12 @@ export default function Establishment({ params }) {
                             <IconButton
                                 aria-label=""
                                 onClick={() => {
-                                    if (typeof window !== "undefined") {
-                                        window.open(
-                                            view.data.facebook,
-                                            "_blank"
-                                        );
-                                    }
+                                    // if (typeof window !== "undefined") {
+                                    //     window.open(
+                                    //         view.data.facebook,
+                                    //         "_blank"
+                                    //     );
+                                    // }
                                 }}
                             >
                                 <FacebookIcon sx={{ color: "black" }} />
