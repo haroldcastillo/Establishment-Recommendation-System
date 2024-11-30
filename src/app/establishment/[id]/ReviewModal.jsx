@@ -33,6 +33,7 @@ function getLabelText(value) {
 }
 export default function ReviewModal({ establishmentId }) {
     const userId = useSelector((state) => state?.user?.user?.data?._id);
+    const user = useSelector((state) => state?.user?.user?.data);
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -68,7 +69,7 @@ export default function ReviewModal({ establishmentId }) {
         formik.setFieldValue("establishmentId", establishmentId);
     }, [userId, establishmentId]);
 
-    if (!establishmentId && !userId) return null;
+    if (!establishmentId || !userId) return null;
 
     return (
         <>
