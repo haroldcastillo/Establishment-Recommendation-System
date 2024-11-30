@@ -234,7 +234,7 @@ export default function Establishment({ params }) {
                             fontWeight: "bold",
                         }}
                     >
-                        {rating.toFixed(2)}{" "}
+                        {rating.toFixed(1)}{" "}
                         <Rating name="read-only" value={rating} readOnly />
                     </Typography>
                     {reviews.map((review) => (
