@@ -14,7 +14,7 @@ import FileUploadComponent from "../../create/FileUploadComponent";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-export default function page({ params }) {
+export default function Page({ params }) {
     const router = useRouter();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.utils.userId);

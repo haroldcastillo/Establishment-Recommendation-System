@@ -14,7 +14,7 @@ import Box from "@mui/material/Box";
 import FileUploadComponent from "./FileUploadComponent";
 import Divider from "@mui/material/Divider";
 
-export default function page() {
+export default function Page() {
     const router = useRouter();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.utils.userId);

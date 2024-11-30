@@ -10,7 +10,7 @@ import {
     RESET_CREATE_ESTABLISHMENT,
 } from "@/store/actions/establishments";
 
-function page() {
+function Page() {
     const dispatch = useDispatch();
     const router = useRouter();
     const establishments = useSelector((state) => state.establishments.owned);

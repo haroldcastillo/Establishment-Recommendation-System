@@ -5,7 +5,7 @@ import { fetchMyFavorites } from "@/store/actions/favorite";
 import CardComponent from "@/components/CardComponent";
 import { useRouter } from "next/navigation";
 
-export default function page() {
+export default function Page() {
     const router = useRouter();
     const dispatch = useDispatch();
     const userId = useSelector((state) => state.auth?.utils?.userId);

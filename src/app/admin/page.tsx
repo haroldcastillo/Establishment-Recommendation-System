@@ -9,7 +9,7 @@ import { fetchAllUsers } from "@/store/actions/user";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllEstablishments } from "@/store/actions/establishments";
 
-export default function page() {
+export default function Page() {
     const dispatch = useDispatch();
     const users = useSelector((state: any) => state?.user?.users);
     const establishments = useSelector(
