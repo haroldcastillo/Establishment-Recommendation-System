@@ -158,7 +158,7 @@ export default function Establishment({ params }) {
                             <p className="font-bold opacity-70 text-[12px]">
                                 Facebook
                             </p>
-                            {/* {view.data.facebook ? (
+                            {view.data.facebook ? (
                                 <a
                                     href={view.data.facebook}
                                     target="_blank"
@@ -171,7 +171,7 @@ export default function Establishment({ params }) {
                                         <FacebookIcon sx={{ color: "black" }} />
                                     </IconButton>
                                 </a>
-                            ) : null} */}
+                            ) : null}
                         </div>
                         <div className="flex justify-between items-center"></div>
                     </div>
