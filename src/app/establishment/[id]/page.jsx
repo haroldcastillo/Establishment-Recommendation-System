@@ -16,6 +16,14 @@ import MenuItem from "@mui/material/MenuItem";
 import DeleteEstablishment from "@/components/DeleteEstablishment";
 import Alert from "@mui/material/Alert";
 import FavoriteComponent from "@/components/FavoriteComponent";
+import ReviewModal from "./ReviewModal";
+import { getReviewsByEstablishment } from "@/store/apis/reviews";
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import dayjs from "dayjs";
+import Rating from "@mui/material/Rating";
+import StarIcon from "@mui/icons-material/Star";
 
 export default function Establishment({ params }) {
     const { handleClick, handleClose, PopperComponent } = usePopover();
@@ -23,7 +31,10 @@ export default function Establishment({ params }) {
     const view = useSelector((state) => state.establishments.view);
     const userId = useSelector((state) => state.auth.utils.userId);
     const router = useRouter();
+    const [reviews, setReviews] = React.useState([]);
+    const [rating, setRating] = React.useState(0);
     const isOwner = view.data?.creatorId === userId;
+    const isReviewed = reviews.some((review) => review.user._id === userId);
     function convertTo12Hour(time) {
         if (!time) {
             return ""; // Or handle the error as needed
@@ -42,6 +53,18 @@ export default function Establishment({ params }) {
         dispatch(fetchEstablishment(params.id));
     }, []);
 
+    useEffect(() => {
+        if (view.data) {
+            handleGetEstablishmentReviews();
+        }
+    }, [view.data]);
+
+    const handleGetEstablishmentReviews = async () => {
+        const response = await getReviewsByEstablishment(params.id);
+        setReviews(response.data.reviews);
+        setRating(response.data.rating);
+    };
+
     if (view.isLoading && view.data === null) {
         return <div>Loading...</div>;
     }
@@ -59,8 +82,8 @@ export default function Establishment({ params }) {
                 </Alert>
             ) : null}
 
-            <div className="flex justify-between mb-4 items-center">
-                <div>
+            <div className="flex mb-4 items-center">
+                <div style={{ flexGrow: "1" }}>
                     <h1 className="text-[20px] font-bold first-letter:uppercase">
                         {view.data.name}
                     </h1>
@@ -103,7 +126,13 @@ export default function Establishment({ params }) {
                     </>
                 ) : (
                     <>
-                        <FavoriteComponent id={view.data._id} />
+                        {isReviewed ? null : (
+                            <ReviewModal establishmentId={view?.data?._id} />
+                        )}
+
+                        {view.data._id && (
+                            <FavoriteComponent id={view.data._id} />
+                        )}
                     </>
                 )}
             </div>
@@ -177,6 +206,104 @@ export default function Establishment({ params }) {
                     </div>
                 </Paper>
             </div>
+            {/* Reviews */}
+            {reviews?.length > 0 ? (
+                <div className="mt-4">
+                    <h2 className="text-[18px] font-bold">
+                        Reviews{" "}
+                        <span style={{ fontWeight: "300" }}>
+                            ({reviews.length} Results)
+                        </span>
+                    </h2>
+                    <Typography
+                        variant="body1"
+                        color="initial"
+                        sx={{
+                            color: "#faaf00",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                            fontSize: "1.5rem",
+                            fontWeight: "bold",
+                        }}
+                    >
+                        {rating}{" "}
+                        <Rating name="read-only" value={rating} readOnly />
+                    </Typography>
+                    {reviews.map((review) => (
+                        <Paper
+                            variant="elevation"
+                            elevation="1"
+                            className="p-4 mt-4"
+                            key={review._id}
+                            sx={{
+                                opacity: 0.8,
+                                transition: "all 0.3s ease-in-out",
+                                ":hover": {
+                                    opacity: 1,
+                                    transform: "scale(1.02)",
+                                },
+                            }}
+                        >
+                            <Box
+                                display="flex"
+                                sx={{
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: "1rem",
+                                    }}
+                                >
+                                    <Avatar
+                                        variant="circular"
+                                        src={review.user.image}
+                                        alt={review.user.name}
+                                    />
+                                    <Box>
+                                        <Typography
+                                            variant="body1"
+                                            color="initial"
+                                            sx={{
+                                                lineHeight: "1",
+                                            }}
+                                        >
+                                            {review.user.name}
+                                        </Typography>
+                                        <Typography
+                                            variant="caption"
+                                            color="initial"
+                                            sx={{
+                                                lineHeight: "1",
+                                            }}
+                                        >
+                                            {dayjs(review.createdAt).format(
+                                                "MMMM DD, YYYY h:mm A"
+                                            )}
+                                        </Typography>
+                                    </Box>
+                                </Box>
+                                <Rating
+                                    name="read-only"
+                                    value={review.rating}
+                                    readOnly
+                                />
+                            </Box>
+                            <Typography
+                                variant="body1"
+                                color="initial"
+                                sx={{ mt: "1em", opacity: 0.7 }}
+                            >
+                                {review.comment}
+                            </Typography>
+                        </Paper>
+                    ))}
+                </div>
+            ) : null}
         </div>
     );
 }
