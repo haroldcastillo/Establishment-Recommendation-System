@@ -31,6 +31,8 @@ export default function Establishment({ params }) {
     const view = useSelector((state) => state.establishments.view);
     const userId = useSelector((state) => state.auth.utils.userId);
     const router = useRouter();
+    const [isLoadingFetchRatings, setIsLoadingFetchRatings] =
+        React.useState(false);
     const [reviews, setReviews] = React.useState([]);
     const [rating, setRating] = React.useState(0);
     const isOwner = view.data?.creatorId === userId;
@@ -60,9 +62,11 @@ export default function Establishment({ params }) {
     }, [view.data]);
 
     const handleGetEstablishmentReviews = async () => {
+        setIsLoadingFetchRatings(true);
         const response = await getReviewsByEstablishment(params.id);
         setReviews(response.data.reviews);
         setRating(response.data.rating);
+        setIsLoadingFetchRatings(false);
     };
 
     if (view.isLoading && view.data === null) {
@@ -126,8 +130,11 @@ export default function Establishment({ params }) {
                     </>
                 ) : (
                     <>
-                        {isReviewed ? null : (
-                            <ReviewModal establishmentId={view?.data?._id} />
+                        {isReviewed || isLoadingFetchRatings ? null : (
+                            <ReviewModal
+                                establishmentId={view?.data?._id}
+                                refresh={handleGetEstablishmentReviews}
+                            />
                         )}
 
                         {view.data._id && (
@@ -227,7 +234,7 @@ export default function Establishment({ params }) {
                             fontWeight: "bold",
                         }}
                     >
-                        {rating}{" "}
+                        {rating.toFixed(2)}{" "}
                         <Rating name="read-only" value={rating} readOnly />
                     </Typography>
                     {reviews.map((review) => (

@@ -31,7 +31,7 @@ const labels = {
 function getLabelText(value) {
     return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
 }
-export default function ReviewModal({ establishmentId }) {
+export default function ReviewModal({ establishmentId, refresh }) {
     const userId = useSelector((state) => state?.user?.user?.data?._id);
     const user = useSelector((state) => state?.user?.user?.data);
     const [open, setOpen] = React.useState(false);
@@ -57,6 +57,7 @@ export default function ReviewModal({ establishmentId }) {
 
             if (response.status !== 500) {
                 console.log("Review created successfully", response);
+                refresh();
             } else {
                 alert("Something went wrong.");
             }
