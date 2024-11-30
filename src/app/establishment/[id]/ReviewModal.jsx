@@ -65,7 +65,7 @@ export default function ReviewModal({ establishmentId }) {
     });
 
     useEffect(() => {
-        // formik.setFieldValue("userId", userId);
+        formik.setFieldValue("userId", userId);
         formik.setFieldValue("establishmentId", establishmentId);
     }, [userId, establishmentId]);
 
