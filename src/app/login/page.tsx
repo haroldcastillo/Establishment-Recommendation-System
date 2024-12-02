@@ -35,7 +35,7 @@ const LoginPage = () => {
     const utils = useSelector((state: any) => state.auth.utils);
     useEffect(() => {
         if (utils.accessToken) {
-            router.back();
+            router.push("/");
         }
         console.log("eqweqeqweqw", utils);
     }, [utils]);
