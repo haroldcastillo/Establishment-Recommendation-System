@@ -42,6 +42,7 @@ export default function Header() {
                 <div className=" gap-4 translate-x-[-60px] hidden sm:flex">
                     <NavLink label="About" location="/about" />
                     <NavLink label="Contact" location="/contact" />
+                    <NavLink label="Explore" location="/explore" />
                 </div>
                 <div className="flex gap-2 items-center">
                     {userId ? (
