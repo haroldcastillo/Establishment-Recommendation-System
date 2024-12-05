@@ -1269,3 +1269,204 @@ export const EstablishmentType = [
     "Malls",
     "Government",
 ];
+
+export const BarangayActivitiesList = [
+    {
+        type: "Barangka",
+        activities: [
+            {
+                title: "Go to Marikina Riverbanks Center",
+                description:
+                    "A popular shopping mall with a wide range of shops, restaurants, and a cinema. It's a great place to spend a day shopping and dining.",
+            },
+            {
+                title: "Go to Marikina Shoe Expo",
+                description:
+                    "A unique shopping destination showcasing the city's famous shoe industry. You can find a variety of shoes, from affordable to high-end.",
+            },
+            {
+                title: "Go to Marikina River Park",
+                description:
+                    "A serene park along the Marikina River, perfect for picnics, jogging, or simply enjoying the natural beauty of the area.",
+            },
+        ],
+    },
+    {
+        type: "Concepcion Uno",
+        activities: [
+            {
+                title: "Go to Immaculate Conception Parish Church",
+                description:
+                    "The Immaculate Conception Parish Church in Concepcion Uno is a serene and historic place of worship. Known for its beautiful architecture and peaceful atmosphere, it offers a perfect setting for prayer, reflection, and spiritual gatherings.",
+            },
+            {
+                title: "Go to McDonald's Concepcion",
+                description:
+                    "McDonald's Concepcion is a familiar fast food destination for residents and visitors alike. Offering classic favorites such as burgers, fries, and the iconic McChicken, it’s a convenient place for a quick meal or a casual family gathering.",
+            },
+            {
+                title: "Go to Jollibee E. Santos",
+                description:
+                    "Jollibee E. Santos is a beloved fast food chain offering a unique Filipino twist to traditional fast food. Known for its famous Chickenjoy, Jolly Spaghetti, and burger meals, this Jollibee branch serves as a perfect stop for comfort food lovers.",
+            },
+        ],
+    },
+    {
+        type: "Conception Dos",
+        activities: [
+            {
+                title: "Go to Diocesan Shrine and Parish of St. Paul of the Cross - SSS Village, Concepcion II, Marikina City",
+                description:
+                    "Visit this historic church and experience the spiritual atmosphere. Attend a mass or simply admire the beautiful architecture and peaceful surroundings.",
+            },
+            {
+                title: "Go to DAPO AT TISA FILIPINO CUISINE",
+                description:
+                    "Indulge in authentic Filipino cuisine at this popular restaurant. Savor delicious dishes like adobo, sinigang, and lechon, all prepared with traditional recipes.",
+            },
+            {
+                title: "Go to Miguel & Maria Restaurant",
+                description:
+                    "Enjoy a fine dining experience at Miguel & Maria. The restaurant offers a diverse menu of international and local dishes, perfect for a special occasion or a romantic dinner.",
+            },
+            {
+                title: "Go to Pan De Amerikana Marikina",
+                description:
+                    "Satisfy your sweet tooth at Pan De Amerikana, a bakery known for its delicious pastries, breads, and cakes. Try their signature ensaymada or ube halaya cake.",
+            },
+            {
+                title: "Go to Crazy Katsu",
+                description:
+                    "Craving Japanese food? Head to Crazy Katsu and indulge in their crispy and flavorful katsu dishes. Perfect for a quick and satisfying meal.",
+            },
+        ],
+    },
+    {
+        type: "Fortune",
+        activities: [],
+    },
+    {
+        type: "Jesus Dela Peña",
+        activities: [],
+    },
+    {
+        type: "Kalumpang",
+        activities: [
+            {
+                title: "Go to SM Marikina City",
+                description:
+                    "A large shopping mall offering a wide range of shops, restaurants, and a cinema. It's a great place to spend a day shopping and dining.",
+            },
+            {
+                title: "Go to Vikings Luxury Buffet, SM City Marikina",
+                description:
+                    "Indulge in a luxurious buffet experience at Vikings, featuring a diverse selection of international and local cuisine.",
+            },
+        ],
+    },
+    {
+        type: "Malanday",
+        activities: [],
+    },
+    {
+        type: "Marikina Heights",
+        activities: [
+            {
+                title: "Go to Marikina - 영도 ( Yeongdo ) Friendship Park",
+                description:
+                    "A beautiful park symbolizing the friendship between Marikina City and Yeongdo District in Busan, South Korea. Enjoy a peaceful stroll, relax by the pond, or simply admire the scenic views.",
+            },
+            {
+                title: "Go to Book Museum cum Ethnology Center",
+                description:
+                    "Discover a unique blend of history and culture at this museum. Explore a vast collection of books and artifacts, and learn about the rich heritage of Marikina City.",
+            },
+            {
+                title: "Go to Ayala Malls Marikina",
+                description:
+                    "A modern shopping mall offering a diverse range of shops, restaurants, and entertainment options. Enjoy a fun-filled day with family and friends, shopping for the latest trends or catching a movie.",
+            },
+        ],
+    },
+    {
+        type: "Nangka",
+        activities: [
+            {
+                title: "Go to Cafe Leonor",
+                description:
+                    "Enjoy a cozy and relaxing atmosphere at Cafe Leonor, sipping on delicious coffee and indulging in delectable pastries.",
+            },
+            {
+                title: "Go to McDonald’s Nangka",
+                description:
+                    "Satisfy your fast-food cravings at McDonald's, offering a variety of burgers, fries, and other classic menu items.",
+            },
+            {
+                title: "Go to San Isidro Labrador Parish Church - Greenland Subdivision, Nangka, Marikina City",
+                description:
+                    "Experience the spiritual ambiance of this beautiful church. Attend a mass or simply admire the stunning architecture and peaceful surroundings.",
+            },
+        ],
+    },
+    {
+        type: "Parang",
+        activities: [
+            {
+                title: "Go to Holy Family Parish Church - Parang, Marikina City",
+                description:
+                    "Experience the spiritual ambiance of this beautiful church. Attend a mass or simply admire the stunning architecture and peaceful surroundings.",
+            },
+            {
+                title: "Go to Jollibee - Parang Marikina",
+                description:
+                    "Satisfy your fast-food cravings at Jollibee, offering a variety of Filipino-style fast food, including burgers, fried chicken, and spaghetti.",
+            },
+            {
+                title: "Go to Parang Marikina Playground",
+                description:
+                    "Enjoy a fun-filled day at the Parang Marikina Playground, perfect for children and families. Let your little ones play and have fun on the slides, swings, and other playground equipment.",
+            },
+        ],
+    },
+    {
+        type: "San Roque",
+        activities: [
+            {
+                title: "Go to Tapsi ni Vivian",
+                description:
+                    "Enjoy a delicious Filipino breakfast or lunch at Tapsi ni Vivian, known for their flavorful tapsilog and other comfort food.",
+            },
+            {
+                title: "Go to 24 Chicken Gil Fernando Marikina Branch",
+                description:
+                    "Satisfy your Korean food cravings at 24 Chicken, a popular Korean fried chicken restaurant offering a variety of crispy and flavorful chicken dishes.",
+            },
+            {
+                title: "Go to Blake's Wings & Steaks - Marikina",
+                description:
+                    "Indulge in juicy steaks and flavorful wings at Blake's, a popular restaurant known for its meaty and savory dishes.",
+            },
+            {
+                title: "Go to Papajeks Marikina",
+                description:
+                    "Enjoy a casual dining experience at Papajeks, offering a wide range of Filipino dishes, from sizzling plates to pasta and pizza.",
+            },
+        ],
+    },
+    {
+        type: "Santa Elena",
+        activities: [],
+    },
+    {
+        type: "Santo Niño",
+        activities: [],
+    },
+    {
+        type: "Tañong",
+        activities: [],
+    },
+    {
+        type: "Tumana",
+        activities: [],
+    },
+];

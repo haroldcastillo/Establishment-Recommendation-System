@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import FavoriteComponent from "./FavoriteComponent";
 import { useSelector } from "react-redux";
+import Box from "@mui/material/Box";
 type Props = {
     title: string;
     description: string;
@@ -32,14 +33,19 @@ export default function CardComponent({
             >
                 {creatorId !== user && <FavoriteComponent id={id} />}
             </div>
-            <div className="p-4">
-                <p className="grow text-[17px] font-semibold first-letter:uppercase">
-                    {title}
-                </p>
-                <p className="text-black text-[14px]  opacity-55">
-                    <LocationOnIcon sx={{ fontSize: "17px" }} />
-                    {description}
-                </p>
+            <div
+                className="p-4"
+                style={{ display: "flex", flexDirection: "column" }}
+            >
+                <Box sx={{ flexGrow: "1" }}>
+                    <p className="grow text-[17px] font-semibold first-letter:uppercase">
+                        {title}
+                    </p>
+                    <p className="text-black text-[14px]  opacity-55">
+                        <LocationOnIcon sx={{ fontSize: "17px" }} />
+                        {description}
+                    </p>
+                </Box>
                 <Button
                     fullWidth
                     variant="contained"
