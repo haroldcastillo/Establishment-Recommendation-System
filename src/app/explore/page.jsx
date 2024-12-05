@@ -85,7 +85,7 @@ export default function Page() {
                                 fontSize: "1.2em",
                             }}
                         >
-                            Activities you can do in {locationTwo}
+                            Activities you can do in {Formik.values.locationTwo}
                         </Typography>
                         <Box display={"flex"} flexDirection={"column"}>
                             {activities.map((activity, index) => {
