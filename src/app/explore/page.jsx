@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 // Dynamically import the map component with SSR disabled
+import dynamic from "next/dynamic";
 const OpenStreetMapWithRouting = dynamic(
     () => import("./OpenStreetMapWithRouting"),
     { ssr: false }
