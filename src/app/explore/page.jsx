@@ -2,7 +2,11 @@
 
 import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
-import OpenStreetMapWithRouting from "./OpenStreetMapWithRouting";
+// Dynamically import the map component with SSR disabled
+const OpenStreetMapWithRouting = dynamic(
+    () => import("./OpenStreetMapWithRouting"),
+    { ssr: false }
+);
 import SelectInput from "@/components/SelectInput";
 import { BarangayList, BarangayActivitiesList } from "@/lib/constants";
 import { useFormik } from "formik";
