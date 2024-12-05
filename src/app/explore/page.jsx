@@ -9,7 +9,7 @@ import { useFormik } from "formik";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 
-export default function page() {
+export default function Page() {
     const [locationOne, setLocationOne] = React.useState(BarangayList[0]);
     const [locationTwo, setLocationTwo] = React.useState(BarangayList[1]);
     const [activities, setActivities] = React.useState(
