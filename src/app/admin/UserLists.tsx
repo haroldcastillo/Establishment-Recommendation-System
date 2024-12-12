@@ -68,7 +68,9 @@ export default function UserLists() {
                                                 height: "30px",
                                             }}
                                         />
-                                        {row.name}
+                                        {`${row.first_name} ${
+                                            row.middle_name || ""
+                                        } ${row.last_name}`}
                                     </Box>
                                 </TableCell>
                                 <TableCell align="left">{row.email}</TableCell>

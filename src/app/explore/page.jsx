@@ -13,6 +13,8 @@ import { BarangayList, BarangayActivitiesList } from "@/lib/constants";
 import { useFormik } from "formik";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
+import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
+import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
 
 export default function Page() {
     const [locationOne, setLocationOne] = React.useState(BarangayList[0]);
@@ -24,6 +26,7 @@ export default function Page() {
         initialValues: {
             locationOne: locationOne,
             locationTwo: locationTwo,
+            distance: 0,
         },
         onSubmit: (values) => {
             setLocationOne(values.locationOne);
@@ -38,7 +41,31 @@ export default function Page() {
             }
         });
     }, [Formik.values.locationTwo]);
+    // Function to format time in hours and minutes
+    const formatTime = (minutes) => {
+        const hours = Math.floor(minutes / 60);
+        const remainingMinutes = Math.round(minutes % 60);
+        if (hours > 0) {
+            return `${hours} hour${
+                hours > 1 ? "s" : ""
+            } ${remainingMinutes} minute${remainingMinutes !== 1 ? "s" : ""}`;
+        }
+        return `${remainingMinutes} minute${remainingMinutes !== 1 ? "s" : ""}`;
+    };
 
+    // Function to calculate walking time in a formatted string
+    const calculateWalkingTime = (distanceKm) => {
+        const walkingSpeed = 5; // Walking speed in km/h
+        const timeInMinutes = (distanceKm / walkingSpeed) * 60;
+        return formatTime(timeInMinutes);
+    };
+
+    // Function to calculate driving time in a formatted string
+    const calculateDrivingTime = (distanceKm) => {
+        const vehicleSpeed = 60; // Driving speed in km/h
+        const timeInMinutes = (distanceKm / vehicleSpeed) * 60;
+        return formatTime(timeInMinutes);
+    };
     return (
         <>
             <div className=" mx-auto max-w-screen-lg px-4 pt-[20px] pb-4 mt-[2em]">
@@ -49,22 +76,75 @@ export default function Page() {
                     sx={{
                         mb: "1em",
                         gap: "1em",
+                        alignItems: "end",
                     }}
                 >
-                    <SelectInput
-                        label="Current Location"
-                        value={Formik.values.locationOne}
-                        name="locationOne"
-                        onChange={Formik.handleChange}
-                        options={BarangayList}
-                    />
-                    <SelectInput
-                        label="Destination"
-                        value={Formik.values.locationTwo}
-                        name="locationTwo"
-                        onChange={Formik.handleChange}
-                        options={BarangayList}
-                    />
+                    <Box
+                        display="flex"
+                        sx={{
+                            gap: "1em",
+                            flexGrow: "1",
+                        }}
+                    >
+                        <SelectInput
+                            label="Current Location"
+                            value={Formik.values.locationOne}
+                            name="locationOne"
+                            onChange={Formik.handleChange}
+                            options={BarangayList}
+                        />
+                        <SelectInput
+                            label="Destination"
+                            value={Formik.values.locationTwo}
+                            name="locationTwo"
+                            onChange={Formik.handleChange}
+                            options={BarangayList}
+                        />
+                    </Box>
+
+                    {Formik.values.distance > 0 && (
+                        <Box
+                            sx={{
+                                display: "flex",
+                                mb: ".4em",
+                                gap: "1em",
+                                alignItems: "center",
+                            }}
+                        >
+                            <Typography variant="body1" color="initial">
+                                Distance: {Formik.values.distance} km
+                            </Typography>
+                            <Box
+                                sx={{
+                                    padding: ".2em .5em",
+                                    borderRadius: ".3em",
+                                    border: "1px solid #ececec",
+                                    gap: ".5em",
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <DirectionsWalkIcon
+                                    sx={{
+                                        fontSize: "1.2em",
+                                        color: "#000",
+                                    }}
+                                />
+                                {calculateWalkingTime(
+                                    parseFloat(Formik.values.distance)
+                                )}
+                                <AirportShuttleIcon
+                                    sx={{
+                                        fontSize: "1.5em",
+                                        color: "#000",
+                                    }}
+                                />
+                                {calculateDrivingTime(
+                                    parseFloat(Formik.values.distance)
+                                )}
+                            </Box>
+                        </Box>
+                    )}
                 </Box>
                 <OpenStreetMapWithRouting
                     locationOne={
@@ -73,6 +153,9 @@ export default function Page() {
                     locationTwo={
                         Formik.values.locationTwo + " marikina, Philippines"
                     }
+                    setDistance={(distance) => {
+                        Formik.setFieldValue("distance", distance);
+                    }}
                 />
                 {activities.length !== 0 && (
                     <Box>

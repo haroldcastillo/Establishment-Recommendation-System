@@ -47,12 +47,16 @@ export default function Header() {
                 <div className="flex gap-2 items-center">
                     {userId ? (
                         <>
-                            <p className="hidden sm:block">{user.name}</p>
+                            <p className="hidden sm:block">
+                                {`${user.first_name} ${
+                                    user?.middle_name || ""
+                                } ${user.last_name}`}
+                            </p>
                             <IconButton aria-label="" onClick={handleClick}>
                                 <Avatar
                                     sx={{ width: 40, height: 40 }}
                                     src={user.image}
-                                    alt={user.name}
+                                    alt={`${user.first_name} ${user?.middle_name} ${user.last_name}`}
                                 />
                             </IconButton>
                             <PopperComponent>
@@ -74,7 +78,9 @@ export default function Header() {
                                                 }}
                                             >
                                                 <p className="text-[14px] font-semibold">
-                                                    {user.name}
+                                                    {`${user.first_name} ${
+                                                        user?.middle_name || ""
+                                                    } ${user.last_name}`}
                                                 </p>
                                                 <p
                                                     className="text-[14px] opacity-85 "

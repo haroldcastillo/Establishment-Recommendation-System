@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useId } from "react";
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -25,6 +25,8 @@ import dayjs from "dayjs";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 
+import { addRecentViewed } from "@/store/apis/user";
+
 export default function Establishment({ params }) {
     const { handleClick, handleClose, PopperComponent } = usePopover();
     const dispatch = useDispatch();
@@ -36,7 +38,7 @@ export default function Establishment({ params }) {
     const [reviews, setReviews] = React.useState([]);
     const [rating, setRating] = React.useState(0);
     const isOwner = view.data?.creatorId === userId;
-    const isReviewed = reviews.some((review) => review.user._id === userId);
+    const isReviewed = reviews.some((review) => review?.user?._id === userId);
     function convertTo12Hour(time) {
         if (!time) {
             return ""; // Or handle the error as needed
@@ -60,6 +62,16 @@ export default function Establishment({ params }) {
             handleGetEstablishmentReviews();
         }
     }, [view.data]);
+
+    useEffect(() => {
+        if (view.data._id && userId) {
+            addRecentViewed({
+                id: userId,
+                establishmentId: view.data._id,
+            });
+            console.log(view.data._id, userId);
+        }
+    }, [userId, view.data]);
 
     const handleGetEstablishmentReviews = async () => {
         setIsLoadingFetchRatings(true);
@@ -268,8 +280,8 @@ export default function Establishment({ params }) {
                                 >
                                     <Avatar
                                         variant="circular"
-                                        src={review.user.image}
-                                        alt={review.user.name}
+                                        src={review?.user?.image}
+                                        alt={review?.user?.name}
                                     />
                                     <Box>
                                         <Typography
@@ -279,7 +291,8 @@ export default function Establishment({ params }) {
                                                 lineHeight: "1",
                                             }}
                                         >
-                                            {review.user.name}
+                                            {review?.user?.first_name}{" "}
+                                            {review?.user?.last_name}
                                         </Typography>
                                         <Typography
                                             variant="caption"
@@ -288,7 +301,7 @@ export default function Establishment({ params }) {
                                                 lineHeight: "1",
                                             }}
                                         >
-                                            {dayjs(review.createdAt).format(
+                                            {dayjs(review?.createdAt).format(
                                                 "MMMM DD, YYYY h:mm A"
                                             )}
                                         </Typography>
@@ -296,7 +309,7 @@ export default function Establishment({ params }) {
                                 </Box>
                                 <Rating
                                     name="read-only"
-                                    value={review.rating}
+                                    value={review?.rating}
                                     readOnly
                                 />
                             </Box>

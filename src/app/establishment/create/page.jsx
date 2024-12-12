@@ -185,7 +185,28 @@ export default function Page() {
                             placeholder="Phone"
                             type="text"
                             value={formik.values.phone}
-                            onChange={formik.handleChange}
+                            onChange={(e) => {
+                                let value = e.target.value.replace(/\D/g, "");
+
+                                // Ensure the phone number doesn't exceed 11 digits
+                                if (value.length > 11) {
+                                    return;
+                                }
+
+                                // Add dashes after every 4 digits (e.g., 0908-265-7587)
+                                if (value.length > 3 && value.length <= 7) {
+                                    value = value.replace(
+                                        /(\d{4})(\d{1,3})/,
+                                        "$1-$2"
+                                    );
+                                } else if (value.length > 7) {
+                                    value = value.replace(
+                                        /(\d{4})(\d{3})(\d{1,4})/,
+                                        "$1-$2-$3"
+                                    );
+                                }
+                                formik.setFieldValue("phone", value);
+                            }}
                             name="phone"
                             error={
                                 formik.touched.phone &&

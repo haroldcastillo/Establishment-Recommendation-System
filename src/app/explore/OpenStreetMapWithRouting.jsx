@@ -33,15 +33,19 @@ const fetchRoute = async (pointA, pointB) => {
         const response = await fetch(url);
         const data = await response.json();
         if (data.routes && data.routes.length > 0) {
-            return data.routes[0].geometry.coordinates.map(([lng, lat]) => [
-                lat,
-                lng,
-            ]);
+            const route = data.routes[0];
+            return {
+                coordinates: route.geometry.coordinates.map(([lng, lat]) => [
+                    lat,
+                    lng,
+                ]),
+                distance: route.distance / 1000, // Convert meters to kilometers
+            };
         }
     } catch (error) {
         console.error("Error fetching route:", error);
     }
-    return [];
+    return { coordinates: [], distance: 0 };
 };
 
 // Custom hook to adjust map view to fit the route
@@ -58,7 +62,11 @@ const AdjustMapView = ({ route }) => {
     return null;
 };
 
-const OpenStreetMapWithRouting = ({ locationOne, locationTwo }) => {
+const OpenStreetMapWithRouting = ({
+    locationOne,
+    locationTwo,
+    setDistance,
+}) => {
     const [coordinatesOne, setCoordinatesOne] = useState(null);
     const [coordinatesTwo, setCoordinatesTwo] = useState(null);
     const [route, setRoute] = useState([]);
@@ -74,9 +82,10 @@ const OpenStreetMapWithRouting = ({ locationOne, locationTwo }) => {
                 setCoordinatesTwo(pointB);
 
                 const routeData = await fetchRoute(pointA, pointB);
-                setRoute(routeData);
+                setRoute(routeData.coordinates);
+                setDistance(routeData.distance);
 
-                if (routeData.length > 0) {
+                if (routeData.coordinates.length > 0) {
                     setIsMapReady(true); // Set map as ready when route is available
                 }
             }
@@ -93,33 +102,42 @@ const OpenStreetMapWithRouting = ({ locationOne, locationTwo }) => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                flexDirection: "column",
             }}
         >
             {isMapReady ? ( // Conditionally render map only when route is ready
-                <MapContainer
-                    center={[14.676041, 121.0437]} // Default center
-                    zoom={13}
-                    style={{ height: "100%", width: "100%", zIndex: "5" }}
-                >
-                    <TileLayer
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    />
-                    {coordinatesOne && (
-                        <Marker
-                            position={[coordinatesOne.lat, coordinatesOne.lng]}
+                <>
+                    <MapContainer
+                        center={[14.676041, 121.0437]} // Default center
+                        zoom={13}
+                        style={{ height: "100%", width: "100%", zIndex: "5" }}
+                    >
+                        <TileLayer
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         />
-                    )}
-                    {coordinatesTwo && (
-                        <Marker
-                            position={[coordinatesTwo.lat, coordinatesTwo.lng]}
-                        />
-                    )}
-                    {route.length > 0 && (
-                        <Polyline positions={route} color="blue" />
-                    )}
-                    <AdjustMapView route={route} />
-                </MapContainer>
+                        {coordinatesOne && (
+                            <Marker
+                                position={[
+                                    coordinatesOne.lat,
+                                    coordinatesOne.lng,
+                                ]}
+                            />
+                        )}
+                        {coordinatesTwo && (
+                            <Marker
+                                position={[
+                                    coordinatesTwo.lat,
+                                    coordinatesTwo.lng,
+                                ]}
+                            />
+                        )}
+                        {route.length > 0 && (
+                            <Polyline positions={route} color="blue" />
+                        )}
+                        <AdjustMapView route={route} />
+                    </MapContainer>
+                </>
             ) : (
                 "loading..."
             )}

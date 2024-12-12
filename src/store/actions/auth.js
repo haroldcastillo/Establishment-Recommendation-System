@@ -14,104 +14,110 @@ export const STATUS_CHECKER_START = "STATUS_CHECKER_START";
 export const STATUS_CHECKER_SUCCESS = "STATUS_CHECKER_SUCCESS";
 export const STATUS_CHECKER_FAILURE = "STATUS_CHECKER_FAILURE";
 
-
-
-export const registerUser = ({ name, email, password, contactNumber,role}) => {
-  return {
-    type: REGISTER_USER_START,
-    payload: {
-      name,
-      email,
-      contactNumber,
-      password,
-      role
-    },
-  };
-}
+export const registerUser = ({
+    first_name,
+    last_name,
+    middle_name,
+    email,
+    password,
+    contactNumber,
+    role,
+}) => {
+    return {
+        type: REGISTER_USER_START,
+        payload: {
+            first_name,
+            last_name,
+            middle_name,
+            email,
+            contactNumber,
+            password,
+            role,
+        },
+    };
+};
 
 export const registerUserSuccess = (payload) => {
-  return {
-    type: REGISTER_USER_SUCCESS,
-    payload
-  };
-}
+    return {
+        type: REGISTER_USER_SUCCESS,
+        payload,
+    };
+};
 
 export const registerUserFailure = ({ error }) => {
-  return {
-    type: REGISTER_USER_FAILURE,
-    payload: {
-      error,
-    },
-  };
-}
+    return {
+        type: REGISTER_USER_FAILURE,
+        payload: {
+            error,
+        },
+    };
+};
 
 export const loginUser = ({ email, password }) => {
-  return {
-    type: LOGIN_USER_START,
-    payload: {
-      email,
-      password,
-    },
-  };
-}
+    return {
+        type: LOGIN_USER_START,
+        payload: {
+            email,
+            password,
+        },
+    };
+};
 
 export const loginUserSuccess = (payload) => {
-  return {
-    type: LOGIN_USER_SUCCESS,
-    payload
-  };
+    return {
+        type: LOGIN_USER_SUCCESS,
+        payload,
+    };
 };
 
 export const loginUserFailure = ({ error }) => {
-  return {
-    type: LOGIN_USER_FAILURE,
-    payload: {
-      error,
-    },
-  };
-}
+    return {
+        type: LOGIN_USER_FAILURE,
+        payload: {
+            error,
+        },
+    };
+};
 
 export const logoutUser = () => {
-  return {
-    type: LOGOUT_USER_START,
-  };
-}
+    return {
+        type: LOGOUT_USER_START,
+    };
+};
 
 export const logoutUserSuccess = () => {
-  return {
-    type: LOGOUT_USER_SUCCESS,
-  };
-}
-
+    return {
+        type: LOGOUT_USER_SUCCESS,
+    };
+};
 
 export const logoutUserFailure = ({ error }) => {
-  return {
-    type: LOGOUT_USER_FAILURE,
-    payload: {
-      error,
-    },
-  };
-}
+    return {
+        type: LOGOUT_USER_FAILURE,
+        payload: {
+            error,
+        },
+    };
+};
 
 export const statusChecker = () => {
-  return {
-    type: STATUS_CHECKER_START,
-  };
-}
+    return {
+        type: STATUS_CHECKER_START,
+    };
+};
 
 export const statusCheckerSuccess = (payload) => {
-  return {
-    type: STATUS_CHECKER_SUCCESS,
-    payload
-  };
-}
+    return {
+        type: STATUS_CHECKER_SUCCESS,
+        payload,
+    };
+};
 
 export const statusCheckerFailure = ({ error }) => {
-  return {
-    type: STATUS_CHECKER_FAILURE,
-    payload: {
-      error,
-    },
-  };
-}
-
+    return {
+        type: STATUS_CHECKER_FAILURE,
+        payload: {
+            error,
+        },
+    };
+};

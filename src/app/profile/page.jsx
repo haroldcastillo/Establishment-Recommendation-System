@@ -11,6 +11,9 @@ import UpdatePassword from "./UpdatePassword";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "@/store/actions/user";
 import useFirebase from "@/hooks/useFirebase";
+import CardComponent from "@/components/CardComponent";
+import RecentViewedEstablishments from "./RecentViewedEstablishments";
+import { fetchUserLogin } from "@/store/actions/user";
 
 export default function Page() {
     const profilePicRef = useRef(null);
@@ -20,7 +23,9 @@ export default function Page() {
 
     const formik = useFormik({
         initialValues: {
-            name: user?.name || "",
+            first_name: user?.first_name || "",
+            last_name: user?.last_name || "",
+            middle_name: user?.middle_name || "",
             contactNumber: user?.contactNumber || "",
             email: user?.email || "",
             image: user?.image || "",
@@ -29,7 +34,9 @@ export default function Page() {
         enableReinitialize: true, // Reinitialize when user data changes
         validate: (values) => {
             const errors = {};
-            if (!values.name) errors.name = "Required";
+            if (!values.first_name) errors.first_name = "Required";
+            if (!values.last_name) errors.last_name = "Required";
+            if (!values.middle_name) errors.middle_name = "Required";
             if (!values.contactNumber) errors.contactNumber = "Required";
             if (!values.email) errors.email = "Required";
             if (!values.id) errors.id = "Required";
@@ -43,6 +50,7 @@ export default function Page() {
     // Debounce form submission when formik values change and the form is dirty
     useEffect(() => {
         if (formik.dirty) {
+            console.log("Formik Values:", formik.values);
             const timeoutId = setTimeout(() => {
                 dispatch(updateUser(formik.values));
             }, 500); // Wait for 500ms after changes before dispatching updateUser
@@ -89,7 +97,7 @@ export default function Page() {
                             }}
                         >
                             <Avatar
-                                alt="Profile Picture"
+                                alt={formik.values.name}
                                 src={formik.values.image}
                                 sx={{
                                     width: "70px",
@@ -123,13 +131,38 @@ export default function Page() {
                         User Details
                     </Typography>
 
-                    <TextFieldComponent
-                        label="Full Name"
-                        onUpdate={(value) =>
-                            formik.setFieldValue("name", value)
-                        }
-                        initialValue={formik.values.name}
-                    />
+                    <Box
+                        display={"grid"}
+                        sx={{
+                            gridTemplateColumns: {
+                                xs: "1fr",
+                                md: "1fr .5fr 1fr",
+                            },
+                            gap: "1em",
+                        }}
+                    >
+                        <TextFieldComponent
+                            label="First Name"
+                            onUpdate={(value) =>
+                                formik.setFieldValue("first_name", value)
+                            }
+                            initialValue={formik.values.first_name}
+                        />
+                        <TextFieldComponent
+                            label="Middle Name"
+                            onUpdate={(value) =>
+                                formik.setFieldValue("middle_name", value)
+                            }
+                            initialValue={formik.values.middle_name}
+                        />
+                        <TextFieldComponent
+                            label="Last Name"
+                            onUpdate={(value) =>
+                                formik.setFieldValue("last_name", value)
+                            }
+                            initialValue={formik.values.last_name}
+                        />
+                    </Box>
                     <Box
                         sx={{
                             display: "grid",
@@ -146,6 +179,7 @@ export default function Page() {
                                 formik.setFieldValue("contactNumber", value)
                             }
                             initialValue={formik.values.contactNumber}
+                            isContactNumber={true}
                         />
                         <TextFieldComponent
                             label="Email Address"
@@ -162,6 +196,8 @@ export default function Page() {
                     </Typography>
                     <UpdatePassword userId={user?._id} />
                 </Paper>
+
+                <RecentViewedEstablishments />
             </div>
         </div>
     );

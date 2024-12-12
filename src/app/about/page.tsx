@@ -1,7 +1,9 @@
+"use client";
 import React from "react";
-import Container from "@mui/material/Container";
 import BaseLayout from "@/layout/baseLayout";
 import Paper from "@mui/material/Paper";
+import IconButton from "@mui/material/IconButton";
+import FacebookIcon from "@mui/icons-material/Facebook";
 function About() {
     return (
         <BaseLayout>
@@ -63,7 +65,7 @@ function About() {
                         that seamlessly blends tradition with modernity.
                     </p>
                 </div>
-                <div style={{ display: "flex", marginTop: "1em" }}>
+                <div style={{ display: "flex", marginTop: "1em", gap: "1em" }}>
                     <Paper
                         variant="elevation"
                         elevation={3}
@@ -90,6 +92,44 @@ function About() {
                             For inquiries, please contact us at:{" "}
                         </p>
                         <strong>atmarikinahelpdesk@gmail.com</strong>
+                    </Paper>
+                    <Paper
+                        variant="elevation"
+                        elevation={3}
+                        sx={{
+                            padding: "1em",
+                            borderRadius: "10px",
+                        }}
+                    >
+                        <h3
+                            style={{
+                                fontSize: "1.5em",
+                                fontWeight: "bold",
+                            }}
+                        >
+                            Facebook Page
+                        </h3>
+                        <p
+                            style={{
+                                fontSize: "1em",
+                                opacity: "0.8",
+                                marginBottom: ".4em",
+                            }}
+                        >
+                            Kindly visit our Facebook page for more updates and
+                            information.
+                        </p>
+                        <IconButton
+                            aria-label=""
+                            href=""
+                            onClick={() => {
+                                window.open(
+                                    "https://www.facebook.com/profile.php?id=61570058470299"
+                                );
+                            }}
+                        >
+                            <FacebookIcon />
+                        </IconButton>
                     </Paper>
                 </div>
             </div>
