@@ -247,7 +247,12 @@ export default function Establishment({ params }) {
                         }}
                     >
                         {rating.toFixed(1)}{" "}
-                        <Rating name="read-only" value={rating} readOnly />
+                        <Rating
+                            name="read-only"
+                            value={rating}
+                            readOnly
+                            precision={0.5}
+                        />
                     </Typography>
                     {reviews.map((review) => (
                         <Paper
@@ -310,6 +315,7 @@ export default function Establishment({ params }) {
                                 <Rating
                                     name="read-only"
                                     value={review?.rating}
+                                    precision={0.5}
                                     readOnly
                                 />
                             </Box>

@@ -57,6 +57,7 @@ export default function Recommendation() {
                                 creatorId={item.creatorId}
                                 img={item.picture[0]}
                                 description={item.barangay}
+                                ratingValue={item.rating}
                                 onClick={() => {
                                     router.push(`/establishment/${item._id}`);
                                 }}

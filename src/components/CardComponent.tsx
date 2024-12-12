@@ -5,7 +5,9 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import FavoriteComponent from "./FavoriteComponent";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
+import Rating from "@mui/material/Rating";
 type Props = {
+    ratingValue?: number;
     title: string;
     description: string;
     img: string;
@@ -19,6 +21,7 @@ export default function CardComponent({
     img,
     onClick,
     id,
+    ratingValue,
     creatorId,
 }: Props) {
     const user = useSelector((state: any) => state.auth?.utils.userId);
@@ -46,6 +49,14 @@ export default function CardComponent({
                         {description}
                     </p>
                 </Box>
+                {ratingValue && (
+                    <Rating
+                        name="half-rating-read"
+                        defaultValue={ratingValue}
+                        precision={0.5}
+                        readOnly
+                    />
+                )}
                 <Button
                     fullWidth
                     variant="contained"
