@@ -15,13 +15,19 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
 import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
+import { useRouter } from "next/navigation";
+import { getBucketList } from "@/store/apis/bucketlist";
 
 export default function Page() {
+    const router = useRouter();
     const [locationOne, setLocationOne] = React.useState(BarangayList[0]);
     const [locationTwo, setLocationTwo] = React.useState(BarangayList[1]);
     const [activities, setActivities] = React.useState(
         BarangayActivitiesList[1].activities
     );
+
+    const [bucketList, setBucketList] = React.useState([]);
+
     const Formik = useFormik({
         initialValues: {
             locationOne: locationOne,
@@ -35,12 +41,18 @@ export default function Page() {
     });
 
     useEffect(() => {
+        async function fetchData() {
+            const response = await getBucketList(Formik.values.locationTwo);
+            setBucketList(response);
+        }
         BarangayActivitiesList.forEach((element) => {
             if (element.type === Formik.values.locationTwo) {
                 setActivities(element.activities);
             }
         });
+        fetchData();
     }, [Formik.values.locationTwo]);
+
     // Function to format time in hours and minutes
     const formatTime = (minutes) => {
         const hours = Math.floor(minutes / 60);
@@ -170,14 +182,29 @@ export default function Page() {
                         >
                             Activities you can do in {Formik.values.locationTwo}
                         </Typography>
-                        <Box display={"flex"} flexDirection={"column"}>
-                            {activities.map((activity, index) => {
+                        <Box
+                            display={"flex"}
+                            flexDirection={"column"}
+                            gap={"1em"}
+                            mt={"1em"}
+                        >
+                            {bucketList.map((bucketList, index) => {
                                 return (
                                     <Paper
                                         key={index}
                                         sx={{
                                             p: "1em",
-                                            m: "1em",
+                                            cursor: "pointer",
+                                            transition: "all .3s ease-in-out",
+                                            ":hover": {
+                                                backgroundColor: "#f9f9f9",
+                                                transform: "scale(1.02)",
+                                            },
+                                        }}
+                                        onClick={() => {
+                                            router.push(
+                                                `/establishment/${bucketList.establishment._id}`
+                                            );
                                         }}
                                     >
                                         <Typography
@@ -187,13 +214,13 @@ export default function Page() {
                                                 fontWeight: "bold",
                                             }}
                                         >
-                                            {activity.title}
+                                            {bucketList.establishment.name}
                                         </Typography>
                                         <Typography
                                             variant="body1"
                                             color="initial"
                                         >
-                                            {activity.description}
+                                            {bucketList.description}
                                         </Typography>
                                     </Paper>
                                 );

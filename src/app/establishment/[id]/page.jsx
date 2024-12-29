@@ -23,7 +23,7 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import dayjs from "dayjs";
 import Rating from "@mui/material/Rating";
-import StarIcon from "@mui/icons-material/Star";
+import BucketListComponent from "./BucketListComponent";
 
 import { addRecentViewed } from "@/store/apis/user";
 
@@ -110,6 +110,11 @@ export default function Establishment({ params }) {
                 </div>
                 {isOwner ? (
                     <>
+                        <BucketListComponent
+                            userId={userId}
+                            establishmentId={view.data._id}
+                            type={view.data.barangay}
+                        />
                         <Tooltip title="More Actions">
                             <IconButton aria-label="" onClick={handleClick}>
                                 <MoreVertIcon />
