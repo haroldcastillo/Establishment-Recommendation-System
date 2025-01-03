@@ -163,33 +163,15 @@ export default function Page() {
                             initialValue={formik.values.last_name}
                         />
                     </Box>
-                    <Box
-                        sx={{
-                            display: "grid",
-                            gridTemplateColumns: {
-                                xs: "1fr",
-                                md: "1fr 1fr",
-                            },
-                            gap: "1em",
-                        }}
-                    >
-                        <TextFieldComponent
-                            label="Contact Number"
-                            onUpdate={(value) =>
-                                formik.setFieldValue("contactNumber", value)
-                            }
-                            initialValue={formik.values.contactNumber}
-                            isContactNumber={true}
-                        />
-                        <TextFieldComponent
-                            label="Email Address"
-                            disabled={true}
-                            initialValue={formik.values.email}
-                            onUpdate={(value) =>
-                                formik.setFieldValue("email", value)
-                            }
-                        />
-                    </Box>
+
+                    <TextFieldComponent
+                        label="Email Address"
+                        disabled={true}
+                        initialValue={formik.values.email}
+                        onUpdate={(value) =>
+                            formik.setFieldValue("email", value)
+                        }
+                    />
 
                     <Typography variant="body1" color="initial">
                         Password
