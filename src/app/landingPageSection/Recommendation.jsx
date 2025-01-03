@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchEstablishments } from "@/store/actions/establishments";
 import LandingFilter from "@/components/LandingFilter";
 import { useRouter } from "next/navigation";
+import { getTotalReviewsByEstablishment } from "@/store/apis/reviews";
 export default function Recommendation() {
     const dispatch = useDispatch();
     const establishments = useSelector(
@@ -49,20 +50,27 @@ export default function Recommendation() {
                                 "repeat(auto-fill, minmax(250px, 1fr))",
                         }}
                     >
-                        {establishments.data.map((item, index) => (
-                            <CardComponent
-                                id={item._id}
-                                key={index}
-                                title={item.name}
-                                creatorId={item.creatorId}
-                                img={item.picture[0]}
-                                description={item.barangay}
-                                ratingValue={item.rating}
-                                onClick={() => {
-                                    router.push(`/establishment/${item._id}`);
-                                }}
-                            />
-                        ))}
+                        {establishments.data.map((item, index) => {
+                            return (
+                                <CardComponent
+                                    id={item._id}
+                                    key={index}
+                                    title={item.name}
+                                    creatorId={item.creatorId}
+                                    img={item.picture[0]}
+                                    description={item.barangay}
+                                    ratingValue={
+                                        Math.round(item.rating * 10) / 10
+                                    }
+                                    onClick={() => {
+                                        router.push(
+                                            `/establishment/${item._id}`
+                                        );
+                                    }}
+                                    totalRating={item?.totalReviews}
+                                />
+                            );
+                        })}
                     </div>
                 ) : (
                     <div className="flex justify-center items-center min-h-[400px]">

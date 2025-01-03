@@ -39,12 +39,7 @@ const RegisterPage = () => {
             if (!values.last_name) {
                 errors.last_name = "Required Last Name";
             }
-            if (!values.middle_name) {
-                errors.middle_name = "Required Middle Name";
-            }
-            if (!values.contactNumber) {
-                errors.contactNumber = "Required Contact Number";
-            }
+
             if (!values.email) {
                 errors.email = "Required Email";
             }
@@ -88,7 +83,7 @@ const RegisterPage = () => {
 
     return (
         <div className="bg-[#ececec] w-[100%] min-h-[100vh] flex flex-col items-center justify-center">
-            <div className="p-7 rounded-xl bg-[white] w-[95%] max-w-[550px]">
+            <div className="p-7 rounded-xl bg-[white] w-[95%] max-w-[660px]">
                 {registerStatus.data.userId ? (
                     <>
                         <h2 className="text-center text-[20px] font-bold text-primary mt-4">
@@ -156,28 +151,7 @@ const RegisterPage = () => {
                                     }
                                     errorMessages={formik.errors.first_name}
                                 />
-                                <Textfield
-                                    label="Middle Name"
-                                    type="text"
-                                    placeholder=""
-                                    value={formik.values.middle_name}
-                                    onChange={(e) => {
-                                        let value = e.target.value.replace(
-                                            /[^a-zA-Z]/g,
-                                            ""
-                                        ); // Remove any non-letter characters (including numbers)
-                                        formik.setFieldValue(
-                                            "middle_name",
-                                            value
-                                        ); // Update the form value with the filtered string
-                                    }}
-                                    name="middle_name"
-                                    error={
-                                        formik.touched.middle_name &&
-                                        formik.errors.middle_name !== undefined
-                                    }
-                                    errorMessages={formik.errors.middle_name}
-                                />
+
                                 <Textfield
                                     label="Last Name"
                                     type="text"
@@ -200,50 +174,29 @@ const RegisterPage = () => {
                                     }
                                     errorMessages={formik.errors.last_name}
                                 />
+                                <Textfield
+                                    label="Middle Name (Optional)"
+                                    type="text"
+                                    placeholder=""
+                                    value={formik.values.middle_name}
+                                    onChange={(e) => {
+                                        let value = e.target.value.replace(
+                                            /[^a-zA-Z]/g,
+                                            ""
+                                        ); // Remove any non-letter characters (including numbers)
+                                        formik.setFieldValue(
+                                            "middle_name",
+                                            value
+                                        ); // Update the form value with the filtered string
+                                    }}
+                                    name="middle_name"
+                                    error={
+                                        formik.touched.middle_name &&
+                                        formik.errors.middle_name !== undefined
+                                    }
+                                    errorMessages={formik.errors.middle_name}
+                                />
                             </Box>
-                            <Textfield
-                                label="Contact Number"
-                                type="tel"
-                                placeholder=""
-                                value={formik.values.contactNumber}
-                                name="contactNumber"
-                                onChange={(e) => {
-                                    // Remove all non-numeric characters
-                                    let value = e.target.value.replace(
-                                        /\D/g,
-                                        ""
-                                    );
-
-                                    // Ensure the phone number doesn't exceed 11 digits
-                                    if (value.length > 11) {
-                                        return;
-                                    }
-
-                                    // Add dashes after every 4 digits (e.g., 0908-265-7587)
-                                    if (value.length > 3 && value.length <= 7) {
-                                        value = value.replace(
-                                            /(\d{4})(\d{1,3})/,
-                                            "$1-$2"
-                                        );
-                                    } else if (value.length > 7) {
-                                        value = value.replace(
-                                            /(\d{4})(\d{3})(\d{1,4})/,
-                                            "$1-$2-$3"
-                                        );
-                                    }
-
-                                    // Update the value in Formik
-                                    formik.setFieldValue(
-                                        "contactNumber",
-                                        value
-                                    );
-                                }}
-                                error={
-                                    formik.touched.contactNumber &&
-                                    formik.errors.contactNumber !== undefined
-                                }
-                                errorMessages={formik.errors.contactNumber}
-                            />
                             <Textfield
                                 label="Email"
                                 type="text"
