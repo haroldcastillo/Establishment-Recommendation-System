@@ -24,6 +24,7 @@ import Typography from "@mui/material/Typography";
 import dayjs from "dayjs";
 import Rating from "@mui/material/Rating";
 import BucketListComponent from "./BucketListComponent";
+import AddBucketListComponent from "../../bucketlist/AddBucketListComponent";
 
 import { addRecentViewed } from "@/store/apis/user";
 
@@ -155,7 +156,13 @@ export default function Establishment({ params }) {
                         )}
 
                         {view.data._id && (
-                            <FavoriteComponent id={view.data._id} />
+                            <>
+                                <AddBucketListComponent
+                                    establishmentId={view.data._id}
+                                    userId={userId}
+                                />
+                                <FavoriteComponent id={view.data._id} />
+                            </>
                         )}
                     </>
                 )}

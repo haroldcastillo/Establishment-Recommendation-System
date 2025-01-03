@@ -148,6 +148,13 @@ export default function Header() {
                                             >
                                                 My Establisments
                                             </MenuItem>
+                                            <MenuItem
+                                                onClick={() => {
+                                                    router.push("/bucketlist");
+                                                }}
+                                            >
+                                                My Bucketlist
+                                            </MenuItem>
                                         </>
                                     ) : (
                                         <MenuItem

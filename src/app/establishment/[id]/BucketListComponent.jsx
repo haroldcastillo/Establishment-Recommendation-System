@@ -105,14 +105,14 @@ export default function BucketListComponent({ userId, establishmentId, type }) {
                         {
                             // eslint-disable-next-line no-nested-ternary
                             isInBucketList
-                                ? "Delete from Bucket List"
-                                : "Add to Bucket List"
+                                ? "Delete from Activities"
+                                : "Add to Activities"
                         }
                     </Typography>
                     <Typography id="modal-modal-description">
                         {isInBucketList
-                            ? "Are you sure you want to delete this from your bucket list?"
-                            : "Add this to your bucket list"}
+                            ? "Are you sure you want to delete this?"
+                            : "Add this to see in activities"}
                     </Typography>
 
                     {!isInBucketList && (
