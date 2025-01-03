@@ -7,11 +7,9 @@ import {
 } from "../../store/apis/journey";
 import { useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useRouter } from "next/navigation";
 
 import BucketListComponent from "./BucketListComponent";
-export default function page() {
-    const router = useRouter();
+export default function Page() {
     const userId = useSelector((state: any) => state?.auth?.utils.userId);
     const [bucketList, setBucketList] = React.useState([]);
     React.useEffect(() => {
@@ -57,6 +55,7 @@ export default function page() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                         {bucketList.map((bucket: any, index: number) => (
                             <BucketListComponent
+                                key={index}
                                 data={bucket}
                                 index={index}
                                 deleteJourneys={deleteJourneys}
