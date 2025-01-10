@@ -42,6 +42,7 @@ function* loginUserSaga(props) {
                 userId: response.userId,
             })
         );
+        localStorage.removeItem("failedLoginCount");
     } catch (error) {
         if (error.response.data.message === "Invalid Password") {
             if (
@@ -58,7 +59,10 @@ function* loginUserSaga(props) {
 
                 const failedLoginTime = new Date();
                 failedLoginTime.setMinutes(failedLoginTime.getMinutes() + 1);
-                localStorage.setItem("failedLoginTime", failedLoginTime.getTime());
+                localStorage.setItem(
+                    "failedLoginTime",
+                    failedLoginTime.getTime()
+                );
             } else {
                 localStorage.setItem(
                     "failedLoginCount",
