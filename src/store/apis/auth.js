@@ -22,3 +22,13 @@ export const verify = async (payload) => {
     const response = await instance.get(`/auth/verify/${payload}`);
     return response.data;
 };
+
+export const resend = async (payload) => {
+    const response = await instance.post("/auth/forgot-password", payload);
+    return response.data;
+};
+
+export const resetPassword = async (payload, id) => {
+    const response = await instance.post(`/auth/reset-password/${id}`, payload);
+    return response.data;
+};

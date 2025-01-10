@@ -6,6 +6,8 @@ import { Button, Chip } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "@/store/actions/auth";
+import ForgetPasswordComponent from "@/app/reset-password/ForgetPasswordComponent";
+
 const LoginPage = () => {
     const dispatch = useDispatch();
     const router = useRouter();
@@ -84,6 +86,7 @@ const LoginPage = () => {
                         }
                         errorMessages={formik.errors.password}
                     />
+                    <ForgetPasswordComponent />
                     <Button
                         type="submit"
                         variant="contained"
