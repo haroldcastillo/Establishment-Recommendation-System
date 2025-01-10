@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/reset-password/[id]/[expiryDate]/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/reset-password/[id]/[expiryDate]/page.jsx", "src/app/login/page.tsx"],
   "exclude": ["node_modules"]
 }

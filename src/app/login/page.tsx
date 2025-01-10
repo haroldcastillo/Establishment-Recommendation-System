@@ -28,9 +28,29 @@ const LoginPage = () => {
             return errors;
         },
         onSubmit: async (values, { resetForm }) => {
-            dispatch(
-                loginUser({ email: values.username, password: values.password })
-            );
+            const failedLoginTime = localStorage.getItem("failedLoginTime");
+            const currentTime = new Date().getTime();
+
+            if (failedLoginTime && parseInt(failedLoginTime) < currentTime) {
+                localStorage.removeItem("failedLoginTime");
+                dispatch(
+                    loginUser({
+                        email: values.username,
+                        password: values.password,
+                    })
+                );
+            } else if (failedLoginTime) {
+                alert(
+                    "You have reached the maximum login attempts. Please try again later"
+                );
+            } else {
+                dispatch(
+                    loginUser({
+                        email: values.username,
+                        password: values.password,
+                    })
+                );
+            }
         },
     });
 
