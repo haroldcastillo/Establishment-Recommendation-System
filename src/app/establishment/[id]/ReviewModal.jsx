@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+"use client";
+import React, { useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -13,7 +14,9 @@ import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import TextField from "@mui/material/TextField";
 import { useSelector } from "react-redux";
-import { createReview } from "@/store/apis/reviews";
+import { createReview, updateReview, deleteReview } from "@/store/apis/reviews";
+import useFirebase from "@/hooks/useFirebase";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 const labels = {
     0.5: "Terrible",
@@ -31,20 +34,26 @@ const labels = {
 function getLabelText(value) {
     return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
 }
-export default function ReviewModal({ establishmentId, refresh }) {
+export default function ReviewModal({ establishmentId, refresh, isReviewed }) {
+    const [loadingImages, setLoadingImages] = React.useState(0);
+    const fileInput = useRef(null);
     const userId = useSelector((state) => state?.user?.user?.data?._id);
     const user = useSelector((state) => state?.user?.user?.data);
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [hover, setHover] = React.useState(-1);
+    const { uploadFile } = useFirebase();
     const formik = useFormik({
-        initialValues: {
-            userId: "",
-            establishmentId: "",
-            rating: 0,
-            comment: "",
-        },
+        initialValues: isReviewed
+            ? isReviewed
+            : {
+                  userId: "",
+                  establishmentId: "",
+                  rating: 0,
+                  photo: [],
+                  comment: "",
+              },
         validate: (values) => {
             const errors = {};
             if (!values.rating) {
@@ -53,7 +62,9 @@ export default function ReviewModal({ establishmentId, refresh }) {
             return errors;
         },
         onSubmit: async (values) => {
-            const response = await createReview(values);
+            const response = isReviewed
+                ? await updateReview(isReviewed._id, values)
+                : await createReview(values);
 
             if (response.status !== 500) {
                 console.log("Review created successfully", response);
@@ -65,6 +76,26 @@ export default function ReviewModal({ establishmentId, refresh }) {
         },
     });
 
+    const handleUpload = async (e) => {
+        let uploadedFiles = [];
+        const files = e.target.files;
+        setLoadingImages(loadingImages + files.length);
+
+        try {
+            for (let i = 0; i < (files.length > 3 ? 3 : files.length); i++) {
+                const file = await uploadFile(files[i], "reviews_images");
+                if (file) uploadedFiles.push(file);
+            }
+        } catch (error) {
+            console.error("Error uploading files:", error);
+        }
+        setLoadingImages(0); // Decrement loading state per file
+        let updatedImages = [...(formik.values.photo || []), ...uploadedFiles];
+        formik.setFieldValue("photo", updatedImages); // Update Formik state with the new images
+        console.log("Images uploaded:", uploadedFiles);
+        e.target.value = null; // Reset the input after handling the files
+    };
+
     useEffect(() => {
         formik.setFieldValue("userId", userId);
         formik.setFieldValue("establishmentId", establishmentId);
@@ -74,7 +105,13 @@ export default function ReviewModal({ establishmentId, refresh }) {
 
     return (
         <>
-            <Tooltip title="Add Review">
+            <Tooltip
+                title={
+                    isReviewed
+                        ? "Edit your review"
+                        : "Review this establishment"
+                }
+            >
                 <IconButton aria-label="" onClick={handleOpen}>
                     <RateReviewIcon />
                 </IconButton>
@@ -208,15 +245,138 @@ export default function ReviewModal({ establishmentId, refresh }) {
                                 value={formik.values.comment}
                                 onChange={formik.handleChange}
                             />
-                            <Button
-                                variant="contained"
-                                onClick={formik.handleSubmit}
+                            <Box
+                                display="grid"
                                 sx={{
-                                    mt: "1rem",
+                                    gridTemplateColumns:
+                                        "repeat(auto-fill, minmax(100px, 1fr))",
+                                    gap: "1rem",
                                 }}
                             >
-                                Submit
-                            </Button>
+                                {formik.values.photo.map((image, index) => (
+                                    <>
+                                        <Box
+                                            key={index}
+                                            sx={{
+                                                position: "relative",
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <img
+                                                src={image}
+                                                alt="review"
+                                                style={{
+                                                    width: "100%",
+                                                    height: "100%",
+                                                    borderRadius: "10px",
+                                                    objectFit: "cover",
+                                                }}
+                                            />
+                                            <IconButton
+                                                onClick={() => {
+                                                    let updatedImages =
+                                                        formik.values.photo.filter(
+                                                            (img) =>
+                                                                img !== image
+                                                        );
+                                                    formik.setFieldValue(
+                                                        "photo",
+                                                        updatedImages
+                                                    );
+                                                }}
+                                                sx={{
+                                                    position: "absolute",
+                                                    top: 0,
+                                                    right: 0,
+                                                }}
+                                            >
+                                                <CloseIcon
+                                                    sx={{ color: "white" }}
+                                                />
+                                            </IconButton>
+                                        </Box>
+                                    </>
+                                ))}
+                            </Box>
+
+                            <input
+                                type="file"
+                                style={{
+                                    display: "none",
+                                }}
+                                ref={fileInput}
+                                onChange={handleUpload}
+                                multiple
+                                accept="image/*"
+                            />
+                            {formik.values.photo.length < 3 && (
+                                <Paper
+                                    variant="elevation"
+                                    elevation={2}
+                                    sx={{
+                                        width: "150px",
+                                        aspectRatio: "9/7",
+                                        cursor: "pointer",
+                                        borderRadius: "10px",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        gap: "10px",
+                                        opacity: ".5",
+                                        ":hover": {
+                                            opacity: "1",
+                                        },
+                                        transition: "opacity .3s",
+                                    }}
+                                    onClick={() => fileInput.current.click()}
+                                >
+                                    <UploadFileIcon
+                                        sx={{ fontSize: "20px", opacity: ".7" }}
+                                    />
+                                    <Typography
+                                        variant="body1"
+                                        color="initial"
+                                        sx={{
+                                            fontSize: "12px",
+                                        }}
+                                    >
+                                        Click here to upload image
+                                    </Typography>
+                                </Paper>
+                            )}
+                            <Box display="flex" gap={"1rem"}>
+                                {isReviewed && (
+                                    <Button
+                                        variant="contained"
+                                        onClick={async () => {
+                                            await deleteReview(isReviewed._id);
+                                            refresh();
+                                            handleClose();
+                                        }}
+                                        sx={{
+                                            mt: "1rem",
+                                            backgroundColor: "red",
+                                            color: "white",
+                                            flexGrow: 1,
+                                        }}
+                                    >
+                                        Delete
+                                    </Button>
+                                )}
+                                <Button
+                                    variant="contained"
+                                    onClick={formik.handleSubmit}
+                                    sx={{
+                                        mt: "1rem",
+                                        flexGrow: 1,
+                                    }}
+                                >
+                                    {isReviewed ? "Update" : "Submit"}
+                                </Button>
+                            </Box>
                             {formik.touched.rating && formik.errors.rating ? (
                                 <Typography
                                     variant="caption"

@@ -39,7 +39,7 @@ export default function Establishment({ params }) {
     const [reviews, setReviews] = React.useState([]);
     const [rating, setRating] = React.useState(0);
     const isOwner = view.data?.creatorId === userId;
-    const isReviewed = reviews.some((review) => review?.user?._id === userId);
+    const isReviewed = reviews.find((review) => review?.user?._id === userId);
     function convertTo12Hour(time) {
         if (!time) {
             return ""; // Or handle the error as needed
@@ -81,7 +81,7 @@ export default function Establishment({ params }) {
         setRating(response.data.rating);
         setIsLoadingFetchRatings(false);
     };
-
+    console.warn(isReviewed);
     if (view.isLoading && view.data === null) {
         return <div>Loading...</div>;
     }
@@ -148,10 +148,11 @@ export default function Establishment({ params }) {
                     </>
                 ) : (
                     <>
-                        {isReviewed || isLoadingFetchRatings ? null : (
+                        {isLoadingFetchRatings ? null : (
                             <ReviewModal
                                 establishmentId={view?.data?._id}
                                 refresh={handleGetEstablishmentReviews}
+                                isReviewed={isReviewed? isReviewed : false}
                             />
                         )}
 
@@ -338,6 +339,32 @@ export default function Establishment({ params }) {
                             >
                                 {review.comment}
                             </Typography>
+
+                            {review?.photo.length > 0 && (
+                                <Box
+                                    sx={{
+                                        display: "grid",
+                                        gridTemplateColumns:
+                                            "repeat(auto-fill, minmax(200px, 1fr))",
+                                        gap: "1rem",
+                                        mt: "1em",
+                                    }}
+                                >
+                                    {review?.photo.map((photo, index) => (
+                                        <img
+                                            key={index}
+                                            src={photo}
+                                            alt={review?.user?.name}
+                                            style={{
+                                                width: "100%",
+                                                height: "100%",
+                                                borderRadius: "10px",
+                                                objectFit: "cover",
+                                            }}
+                                        />
+                                    ))}
+                                </Box>
+                            )}
                         </Paper>
                     ))}
                 </div>
