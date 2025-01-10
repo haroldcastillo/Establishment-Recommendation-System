@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
-export default function page({ params }) {
+export default function Page({ params }) {
     const router = useRouter();
     const isExpired = params && params.expiryDate < Date.now();
 
