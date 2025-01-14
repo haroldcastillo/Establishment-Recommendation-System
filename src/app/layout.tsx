@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "@/lib/Providers";
 import StatusCheckerProvider from "@/lib/StatusCheckerProvider";
 import Preference from "./preference/Preference";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -21,7 +22,9 @@ export default function RootLayout({
             <body className={inter.className}>
                 <Providers>
                     <StatusCheckerProvider>
-                        <Preference>{children}</Preference>
+                        <GoogleOAuthProvider clientId="1018735343493-7bm8mu5l1atav2hjpg1frcoo3fe3q67l.apps.googleusercontent.com">
+                            <Preference>{children}</Preference>
+                        </GoogleOAuthProvider>
                     </StatusCheckerProvider>
                 </Providers>
             </body>

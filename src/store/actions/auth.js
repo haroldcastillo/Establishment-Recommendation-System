@@ -14,6 +14,10 @@ export const STATUS_CHECKER_START = "STATUS_CHECKER_START";
 export const STATUS_CHECKER_SUCCESS = "STATUS_CHECKER_SUCCESS";
 export const STATUS_CHECKER_FAILURE = "STATUS_CHECKER_FAILURE";
 
+export const GOOGLE_LOGIN_START = "GOOGLE_LOGIN_START";
+export const GOOGLE_LOGIN_SUCCESS = "GOOGLE_LOGIN_SUCCESS";
+export const GOOGLE_LOGIN_FAILURE = "GOOGLE_LOGIN_FAILURE";
+
 export const registerUser = ({
     first_name,
     last_name,
@@ -116,6 +120,29 @@ export const statusCheckerSuccess = (payload) => {
 export const statusCheckerFailure = ({ error }) => {
     return {
         type: STATUS_CHECKER_FAILURE,
+        payload: {
+            error,
+        },
+    };
+};
+
+export const googleLoginStart = (payload) => {
+    return {
+        type: GOOGLE_LOGIN_START,
+        payload,
+    };
+};
+
+export const googleLoginSuccess = (payload) => {
+    return {
+        type: GOOGLE_LOGIN_SUCCESS,
+        payload,
+    };
+};
+
+export const googleLoginFailure = ({ error }) => {
+    return {
+        type: GOOGLE_LOGIN_FAILURE,
         payload: {
             error,
         },

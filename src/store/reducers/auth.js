@@ -11,6 +11,7 @@ import {
     LOGOUT_USER_START,
     LOGOUT_USER_FAILURE,
     LOGOUT_USER_SUCCESS,
+    GOOGLE_LOGIN_START,
 } from "../actions/auth.js";
 
 const initialState = {
@@ -75,6 +76,14 @@ export const authReducer = (state = initialState, action) => {
                 },
             };
         case LOGIN_USER_START:
+            return {
+                ...state,
+                login: {
+                    ...state.login,
+                    isloading: true,
+                },
+            };
+        case GOOGLE_LOGIN_START:
             return {
                 ...state,
                 login: {

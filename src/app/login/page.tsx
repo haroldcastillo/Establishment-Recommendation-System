@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "@/store/actions/auth";
 import ForgetPasswordComponent from "@/app/reset-password/ForgetPasswordComponent";
-
+import GoogleLoginComponent from "./GoogleLoginComponent";
 const LoginPage = () => {
     const dispatch = useDispatch();
     const router = useRouter();
@@ -126,6 +126,8 @@ const LoginPage = () => {
                             Sign Up
                         </span>
                     </p>
+                    <hr />
+                    <GoogleLoginComponent />
                 </form>
             </div>
         </div>

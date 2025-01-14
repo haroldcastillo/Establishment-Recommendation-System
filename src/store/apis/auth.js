@@ -32,3 +32,8 @@ export const resetPassword = async (payload, id) => {
     const response = await instance.post(`/auth/reset-password/${id}`, payload);
     return response.data;
 };
+
+export const googleLogin = async (payload) => {
+    const response = await instance.post("/auth/google-login", payload);
+    return response.data;
+};

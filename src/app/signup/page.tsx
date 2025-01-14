@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import Chip from "@mui/material/Chip";
 import { registerUser } from "@/store/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
+import GoogleRegisterComponent from "./GoogleRegisterComponent";
 const RegisterPage = () => {
     const registerStatus = useSelector((state: any) => state.auth.register);
     const dispatch = useDispatch();
@@ -255,6 +256,8 @@ const RegisterPage = () => {
                                     Login
                                 </span>
                             </p>
+                            <hr />
+                            <GoogleRegisterComponent />
                         </form>
                     </>
                 )}

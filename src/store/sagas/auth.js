@@ -12,9 +12,16 @@ import {
     REGISTER_USER_START,
     registerUserSuccess,
     registerUserFailure,
+    GOOGLE_LOGIN_START,
 } from "../actions/auth";
 
-import { register, login, logout, checkstatus } from "../apis/auth";
+import {
+    register,
+    login,
+    logout,
+    checkstatus,
+    googleLogin,
+} from "../apis/auth";
 
 {
     /* ====== Async Function SAGA ====== */
@@ -30,6 +37,20 @@ function* registerUserSaga(props) {
         );
     } catch (error) {
         yield put(registerUserFailure({ error: error.toString() }));
+    }
+}
+
+function* googleLoginSaga(props) {
+    try {
+        const response = yield call(googleLogin, props.payload);
+        yield put(
+            loginUserSuccess({
+                token: response.accessToken,
+                userId: response.userId,
+            })
+        );
+    } catch (error) {
+        yield put(loginUserFailure({ error: error.toString() }));
     }
 }
 
@@ -112,11 +133,16 @@ function* watchStatusCheckerSaga() {
     yield takeLatest(STATUS_CHECKER_START, statusCheckerSaga);
 }
 
+function* watchGoogleLoginSaga() {
+    yield takeLatest(GOOGLE_LOGIN_START, googleLoginSaga);
+}
+
 export default function* authSaga() {
     yield all([
         fork(watchRegisterUserSaga),
         fork(watchLoginUserSaga),
         fork(watchLogoutUserSaga),
         fork(watchStatusCheckerSaga),
+        fork(watchGoogleLoginSaga),
     ]);
 }
