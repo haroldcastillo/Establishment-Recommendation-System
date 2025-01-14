@@ -42,7 +42,9 @@ export default function Page() {
 
     useEffect(() => {
         async function fetchData() {
+            console.warn(Formik.values.locationTwo);
             const response = await getBucketList(Formik.values.locationTwo);
+            console.log("HEHEHE", response);
             setBucketList(response);
         }
         BarangayActivitiesList.forEach((element) => {
@@ -169,7 +171,7 @@ export default function Page() {
                         Formik.setFieldValue("distance", distance);
                     }}
                 />
-                {activities.length !== 0 && (
+                {bucketList.length > 0 && (
                     <Box>
                         <Typography
                             variant="body1"
