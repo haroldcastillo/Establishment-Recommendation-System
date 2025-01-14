@@ -43,6 +43,9 @@ function* registerUserSaga(props) {
 function* googleLoginSaga(props) {
     try {
         const response = yield call(googleLogin, props.payload);
+        if (response.accessToken === undefined) {
+            alert("Please register first");
+        }
         yield put(
             loginUserSuccess({
                 token: response.accessToken,
